@@ -1,0 +1,4 @@
+# Preserve released artifact bytes and SHA256 values on every platform.
+* -text
+*.step binary
+*.stp binary

@@ -1,0 +1,56 @@
+{
+  "status": "pass",
+  "qualification": "digitally checked indoor pilot; unbuilt",
+  "board_sha256": "6ff80b236ef77641ff8314eb44453d8485a9d75159a88e07c161493016356d19",
+  "schematic_sha256": "5a306b35b28b4e8d1bef26f5aa2856024e60da3f7c4e61dec902cd1a81a2edd2",
+  "step_sha256": "fdb89e5e99ed32ec80d92066ff5617937cf2f207b085a7ebe7ca51417414bbcd",
+  "erc_violations": 0,
+  "drc_violations": 0,
+  "unrouted": 0,
+  "schematic_parity": 0,
+  "critical_pin_checks": 42,
+  "footprint_instances": 33,
+  "tracks": 203,
+  "vias": 15,
+  "minimum_track_mm": 0.1874,
+  "fabrication_files": {
+    "SmartMark-B_Cu.gbl": "6a7c0268cf99f94433587b6d138192b41a8c45f8dccd24a8e9e4ca64eadac96b",
+    "SmartMark-B_Mask.gbs": "706b2b80faf2c00c4d4fbb80a7ddd3a58226eac2e7ae416360a8a8708b3f1d5b",
+    "SmartMark-B_Paste.gbp": "221346962af45f73e4e9475a2783aba2a4a2c8a0aa51d1fee485cc2044bb8851",
+    "SmartMark-B_Silkscreen.gbo": "38111a7036c32f1ecff4644a88f413b74a794b96cee585029f5fe54dfc6ce57c",
+    "SmartMark-drill.rpt": "130ffe4661db7f08676460ba2b165a8c3278631e0bddd4ef6991594202ef0652",
+    "SmartMark-Edge_Cuts.gm1": "1bcc3e37661c68a922cdb953dbc65db2adabf1104860378e16da1ea8b618fb2c",
+    "SmartMark-F_Cu.gtl": "69ef2956444a3992bb9084c43bfdd1920aa50750a678c0acbe55e0ba7eea7156",
+    "SmartMark-F_Mask.gts": "fd19d3031e0566dce86106ab8ff62be4e71f97869a5f281cc663dbe7236930c1",
+    "SmartMark-F_Paste.gtp": "3e353d566f14a96e20aaba9c4453b6af2e230f157d228ce07a676f3e45c8e143",
+    "SmartMark-F_Silkscreen.gto": "27774c64f008e122e4ec2949ec2f060d523df5f936325723acfe22f449970665",
+    "SmartMark-job.gbrjob": "4e70c6396522ecf2dda919fe3a0640d8e044e131fd3a07e3d31cdc279dfeecec",
+    "SmartMark-NPTH-drl_map.pdf": "0ff0c172977fd72bcad809613df6c1d1f1203293a1fe2918923483e70cbdb1de",
+    "SmartMark-NPTH.drl": "da7030bff0d10a198e89dd361d3fc5d3f2061432d5fefa46ccd7bfc57c4d4bc6",
+    "SmartMark-PTH-drl_map.pdf": "dfc64637c50b144fccd6f1a57a065708108daa3ae331dc96e10198850b83529e",
+    "SmartMark-PTH.drl": "e6e61ba29d01019b9444faf2069a9a3a7688d07fff09aeb6188cafed4dd64435"
+  },
+  "archive_sha256": "ce53bfdd7631b4e652f0b826dfbd583b884c017561fca60229a23ce2655b3481",
+  "native_default_ignored_checks": [
+    {
+      "description": "Footprint has no courtyard defined",
+      "key": "missing_courtyard"
+    },
+    {
+      "description": "Track endpoint not centered on via",
+      "key": "track_not_centered_on_via"
+    },
+    {
+      "description": "Tuning profile track geometries",
+      "key": "tuning_profile_track_geometries"
+    },
+    {
+      "description": "Footprint doesn't match symbol's footprint filters",
+      "key": "footprint_filters_mismatch"
+    },
+    {
+      "description": "Footprint component type doesn't match footprint pads",
+      "key": "footprint_type_mismatch"
+    }
+  ]
+}

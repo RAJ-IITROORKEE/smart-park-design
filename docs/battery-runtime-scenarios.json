@@ -1,0 +1,43 @@
+{
+  "capacity_mAh": 1500,
+  "usable_fraction": 0.8,
+  "sleep_mA": 0.05,
+  "radio_mA": 150,
+  "radio_s": 0.1,
+  "report_interval_s": 300,
+  "scenarios": [
+    {
+      "interval_s": 5,
+      "mode": "fast wake",
+      "awake_mA": 60,
+      "awake_s": 0.12,
+      "average_mA": 1.54,
+      "days": 32.5
+    },
+    {
+      "interval_s": 5,
+      "mode": "slower wake",
+      "awake_mA": 70,
+      "awake_s": 0.3,
+      "average_mA": 4.3,
+      "days": 11.6
+    },
+    {
+      "interval_s": 10,
+      "mode": "fast wake",
+      "awake_mA": 60,
+      "awake_s": 0.12,
+      "average_mA": 0.82,
+      "days": 61.0
+    },
+    {
+      "interval_s": 10,
+      "mode": "slower wake",
+      "awake_mA": 70,
+      "awake_s": 0.3,
+      "average_mA": 2.2,
+      "days": 22.7
+    }
+  ],
+  "qualification": "assumed battery-side currents, not measured"
+}

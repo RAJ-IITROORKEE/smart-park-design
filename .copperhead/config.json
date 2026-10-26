@@ -1,0 +1,6 @@
+{
+  "schematic": "hardware/SmartMark.kicad_sch",
+  "board": "hardware/SmartMark.kicad_pcb",
+  "docs": "docs/",
+  "model": null
+}

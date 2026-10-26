@@ -1,0 +1,7 @@
+# Local caches and editor session state
+__pycache__/
+*.pyc
+lat.md/.cache/
+*.kicad_prl
+*.lck
+~$*

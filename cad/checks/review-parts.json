@@ -1,0 +1,112 @@
+{
+  "jobs": [
+    {
+      "input": "STEP/base.step",
+      "outputs": [
+        {
+          "path": "renders/base.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/lid.step",
+      "outputs": [
+        {
+          "path": "renders/lid.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/sensor_mask.step",
+      "outputs": [
+        {
+          "path": "renders/sensor_mask.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/sensor_retainer.step",
+      "outputs": [
+        {
+          "path": "renders/sensor_retainer.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/front_oled.step",
+      "outputs": [
+        {
+          "path": "renders/front_oled.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/front_blank.step",
+      "outputs": [
+        {
+          "path": "renders/front_blank.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/oled_retainer.step",
+      "outputs": [
+        {
+          "path": "renders/oled_retainer.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/fit_coupon.step",
+      "outputs": [
+        {
+          "path": "renders/fit_coupon.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    },
+    {
+      "input": "STEP/light_pipe.step",
+      "outputs": [
+        {
+          "path": "renders/light_pipe.png",
+          "camera": "iso"
+        }
+      ],
+      "output": {
+        "sizeProfile": "simple"
+      }
+    }
+  ]
+}

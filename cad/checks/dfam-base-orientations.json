@@ -1,0 +1,51 @@
+{
+  "file": "C:\\Users\\rajra\\.codex\\visualizations\\2026\\10\\22\\01a1636c-dc70-7193-9430-ce7daa96cf65\\smart-marking-pcb\\revision-d\\cad\\STL\\base.stl",
+  "scale": {
+    "bbox_diagonal_mm": 125.4279,
+    "units_suspect": false,
+    "note": "bbox consistent with millimetre units"
+  },
+  "orientations": {
+    "angle_limit_used_deg": 45.0,
+    "pct_denominator": "total surface area",
+    "candidates": [
+      {
+        "orientation": "current_plus_z",
+        "support_area_mm2": 1251.28,
+        "support_area_pct": 3.5,
+        "build_height_mm": 50.4
+      },
+      {
+        "orientation": "flip_180_x",
+        "support_area_mm2": 3974.01,
+        "support_area_pct": 11.2,
+        "build_height_mm": 50.4
+      },
+      {
+        "orientation": "rot_plus_90_x",
+        "support_area_mm2": 5426.29,
+        "support_area_pct": 15.2,
+        "build_height_mm": 66.0
+      },
+      {
+        "orientation": "rot_minus_90_x",
+        "support_area_mm2": 3254.1,
+        "support_area_pct": 9.1,
+        "build_height_mm": 66.0
+      },
+      {
+        "orientation": "rot_plus_90_y",
+        "support_area_mm2": 7072.72,
+        "support_area_pct": 19.9,
+        "build_height_mm": 94.0
+      },
+      {
+        "orientation": "rot_minus_90_y",
+        "support_area_mm2": 7070.78,
+        "support_area_pct": 19.8,
+        "build_height_mm": 94.0
+      }
+    ]
+  },
+  "partial": false
+}

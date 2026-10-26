@@ -1,0 +1,332 @@
+"""Write the illustrated RevD build guide and matching Markdown from one content list."""
+from pathlib import Path
+import csv, json, re, shutil, math
+from PIL import Image, ImageDraw, ImageFont
+from docx import Document
+from docx.shared import Inches, Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
+
+ROOT=Path(__file__).resolve().parents[1]
+PRE=ROOT/'previews'
+DOC=ROOT/'docs'
+SOURCES={
+ 'kit':('Seeed kit product','https://www.seeedstudio.com/Wio-SX1262-with-XIAO-ESP32S3-p-5982.html'),
+ 'kitindia':('Robocraze kit','https://robocraze.com/products/xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora'),
+ 'xiaowiki':('Seeed XIAO power and pads','https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/'),
+ 'wiowiki':('Seeed kit documentation','https://wiki.seeedstudio.com/wio_sx1262_with_xiao_esp32s3_kit/'),
+ 'wiodata':('Seeed radio datasheet','https://files.seeedstudio.com/products/SenseCAP/Wio_SX1262/Wio-SX1262_Module_Datasheet.pdf'),
+ 'hc':('Robu HC-SR04 SKU 2444','https://robu.in/product/hc-sr04-ultrasonic-range-finder/'),
+ 'hcdata':('HC-SR04 supplier manual','https://robu.in/wp-content/uploads/2020/02/edited_HC-SR04-User-Manual-1-converted-converted.pdf'),
+ 'oled':('Robu OLED SKU 617725','https://robu.in/product/0-96-inch-i2c-iic-oled-lcd-module-4pin-with-vcc-gnd-white/'),
+ 'battery':('Probots protected pack candidate','https://probots.co.in/lithium-ion-rechargeable-battery-3-7v-1500mah-kp-053450.html'),
+ 'solar':('DFRobot FIT0601','https://www.dfrobot.com/product-1774.html'),
+ 'solarindia':('Evelta FIT0601','https://evelta.com/monocrystalline-solar-panel-5v-1a/'),
+ 'boost':('TI TPS61099 product and ordering','https://www.ti.com/product/TPS61099'),
+ 'buffer':('TI SN74LVC1G17 product and ordering','https://www.ti.com/product/SN74LVC1G17'),
+ 'level':('TI SN74LVC1T45 product and ordering','https://www.ti.com/product/SN74LVC1T45'),
+ 'pixel':('Worldsemi exact pixel listing','https://lcscindia.com/part/WS2812B-2020-V6'),
+ 'inductor':('TDK exact inductor','https://product.tdk.com/en/search/inductor/inductor/smd/info?part_no=VLS3012CX-2R2M-1'),
+ 'cin':('Murata input capacitor','https://www.digikey.com/en/products/detail/murata-electronics/GRM21BR71A106KE51L/965919'),
+ 'cout':('Murata output capacitor','https://www.digikey.com/en/products/detail/murata-electronics/GRM31CZ71C226ME15L/13904808'),
+ 'bypass':('Murata 100 nF candidate','https://www.mouser.com/ProductDetail/Murata-Electronics/GRM188R71C104KA01D'),
+ 'r1':('Yageo 1 Mohm candidate','https://www.mouser.com/ProductDetail/YAGEO/RC0603FR-071ML'),
+ 'r2':('Yageo 249 kohm candidate','https://www.digikey.com/en/products/detail/yageo/RC0603FR-07249KL/727086'),
+ 'r100':('Yageo 100 kohm candidate','https://www.digikey.com/en/products/detail/yageo/RC0603FR-07100KL/726889'),
+ 'r330':('Yageo 330 ohm candidate','https://www.digikey.com/en/products/detail/yageo/RC0603FR-07330RL/727162'),
+ 'r47':('Yageo 4.7 kohm candidate','https://www.mouser.com/ProductDetail/YAGEO/RC0603FR-074K7L'),
+ 'ph4':('JST B4B-PH-K-S','https://www.digikey.com/en/products/detail/jst-sales-america-inc/B4B-PH-K-S/926613'),
+ 'socket':('Samtec socket dimensional candidate','https://www.digikey.com/en/products/detail/samtec-inc/SSW-107-01-T-S/1112298'),
+}
+
+def source(key):
+    text,url=SOURCES[key]
+    return f'[{text}]({url})'
+
+MODULES=[
+ ['1','XIAO ESP32S3 and Wio-SX1262 kit 102010611','Controller, LoRa radio and antennas. Use the complete S3 kit, not the nRF52840 version.',source('kit')+'; '+source('kitindia')],
+ ['1','HC-SR04 ultrasonic module','5 V sensor. Nominal 2 cm to 4 m; intended mounting height up to 2.8 m indoors.',source('hc')],
+ ['0 or 1','GoldenMorning GME12864-11 OLED','Optional 0.96 inch 128x64 SSD1306 I2C, white. PCB 27.8 x 27.5 mm; max module 3.5 mm.',source('oled')],
+ ['1','Protected 1S LiPo pouch pack','3.7 V nominal, 4.2 V full; target 1500 mAh. Entire delivered pack must fit 51 x 34 x 5 mm. Candidate is not procurement approved.',source('battery')],
+ ['0 or 1','External regulated solar source','FIT0601 5 V USB output, nominal 6 W panel. Requires USB-A to USB-C cable and outdoor panel mount.',source('solar')+'; '+source('solarindia')],
+]
+PARTS=[
+ ['U2','1','TPS61099DRVR','Adjustable boost, WSON-6 with exposed pad, 2 x 2 mm. Requires reflow.',source('boost')],
+ ['U3','1','SN74LVC1T45DBVR','SOT-23-6, 3.3 V to switched 5 V pixel data.',source('level')],
+ ['U4','1','SN74LVC1G17DBVR','SOT-23-5, 5 V tolerant ECHO buffer to MCU.',source('buffer')],
+ ['D1','1','WS2812B-2020-V6','2 x 2 mm, bottom side. Exact V6 pad map; do not substitute generic WS2812.',source('pixel')],
+ ['L1','1','VLS3012CX-2R2M-1','TDK 2.2 uH, 3 x 3 x 1.2 mm.',source('inductor')],
+ ['C1','1','GRM21BR71A106KE51L','10 uF, 10 V X7R, 0805.',source('cin')],
+ ['C2 C3','2','GRM31CZ71C226ME15L','22 uF, 16 V X7R, 1206. Preserve DC bias margin.',source('cout')],
+ ['C4 C5 C6 C7','4','100 nF, 16 V X7R, 0603','Example sourcing MPN GRM188R71C104KA01D. C7 is bottom side.',source('bypass')],
+ ['R1','1','1 Mohm, 1%, 0603','Candidate RC0603FR-071ML, 0.1 W.',source('r1')],
+ ['R2','1','249 kohm, 1%, 0603','Candidate RC0603FR-07249KL, 0.1 W.',source('r2')],
+ ['R3 R4 R6 R7','4','100 kohm, 1%, 0603','Candidate RC0603FR-07100KL, 0.1 W.',source('r100')],
+ ['R5','1','330 ohm, 1%, 0603','Candidate RC0603FR-07330RL, 0.1 W.',source('r330')],
+ ['R8 R9','2 or 0','4.7 kohm, 1%, 0603','OLED only; candidate RC0603FR-074K7L.',source('r47')],
+ ['J1','1','JST B4B-PH-K-S LF SN','Through hole, 1x4 at 2 mm. Verify housing matches chosen cable.',source('ph4')],
+ ['J2','1 or 0','1x4 male header, 2.54 mm','OLED only. Cable to display; display is not soldered directly to carrier. Standard pin-header stock; select fit.','See OLED product and assembly drawing'],
+ ['U1 interface','2','1x7 female socket, 2.54 mm','Required body height 8.5 mm. Samtec SSW-107-01-T-S is an 8.51 mm dimensional candidate; complete stack still needs trial fit.',source('socket')],
+ ['XIAO edge pads','2','1x7 male header, 2.54 mm','2.5 mm plastic shoulder; XIAO-side short legs at least 3 mm. Leave 0.6 mm air gap above plastic using removable shim.','Exact supplier MPN remains to be confirmed against these dimensions'],
+]
+ACCESSORIES=[
+ ['Sensor cable','1','JST-PH4 mating housing and contacts to four 2.54 mm female sensor sockets. Pin-to-pin continuity is required.','Match J1 and actual HC-SR04 male header'],
+ ['Battery lead','1','Matching PH2 battery mate to two insulated wires soldered to XIAO BAT pads before Wio is mated.','Pack connector polarity is not standardized'],
+ ['OLED cable','0 or 1','Flexible four-wire lead, 2.54 mm mating female ends.','GND, 3V3, SCL, SDA; match product pin labels'],
+ ['RF parts','1 set','Use kit LoRa antenna for first bench test; selected 865 MHz external antenna and U.FL to SMA bulkhead lead for case mounting.','6.6 mm case bore; connector body, coax bend and antenna MPN not frozen'],
+ ['Battery retention','1 set','1 mm insulating foam and nonconductive strap.','Never compress or puncture pouch'],
+ ['USB cable','1','Data-capable USB-C for upload; regulated solar cable instead for charging.','Slim plug must fit 14 x 7.6 mm opening'],
+ ['Fasteners','1 set','4x M2x4 sensor/mask; 2x M2x6 front panel; OLED adds 4x M2x5. Carrier: 4x M2.5-class screws, trial M2.5x6.','Printed pilot bores; verify engagement, no bottoming or battery contact'],
+ ['Installation','1 set','Four suitable ceiling anchors and secondary retention for the actual ceiling material.','Mounting holes 4.5 mm, centers 82 x 42 mm'],
+]
+GPIO=[
+ ['HC_TRIG','D0','GPIO1','Output; 10 us pulse to J1 pin 2'],
+ ['ECHO_GPIO','D1','GPIO2','Input from U4 buffer; never raw 5 V ECHO'],
+ ['BOOST_EN','D3','GPIO4','Output active high; low disables sensor and RGB supply'],
+ ['OLED SDA','D4','GPIO5','I2C data to J2 pin 4'],
+ ['OLED SCL','D5','GPIO6','I2C clock to J2 pin 3'],
+ ['RGB data','D6','GPIO43','WS2812 data through U3; also UART0 boot TX'],
+ ['Reserved','D2','GPIO3','Strapping pin; leave unconnected'],
+ ['Wio SPI','D8 D9 D10','GPIO7 GPIO8 GPIO9','Reserved by kit radio; not available to carrier peripherals'],
+]
+PRINTS=[
+ ['base','1','1','Main shell, tray, standoffs and mounting ears'],
+ ['lid','1','1','Four releasable snap clips'],
+ ['sensor_mask','1','1','Two sensor face openings only'],
+ ['sensor_retainer','1','1','Edge clamp above HC-SR04'],
+ ['light_pipe','1','1','Clear PETG or suitable 3 mm clear rod'],
+ ['front_oled','1','0','OLED bezel and panel'],
+ ['oled_retainer','1','0','Holds display behind front panel'],
+ ['front_blank','0','1','Closed panel for no OLED'],
+ ['fit_coupon','optional','optional','Trial print, not installed'],
+]
+
+def runtime_rows():
+    # @lat: [[index#SmartPark Revision D#Battery runtime estimate]]
+    rows=[]
+    for interval in (5,10):
+        for mode,current,seconds in [('fast wake',60,.12),('slower wake',70,.30)]:
+            avg=.05+current*seconds/interval+150*.1/300
+            days=1500*.8/avg/24
+            rows.append({'interval_s':interval,'mode':mode,'awake_mA':current,'awake_s':seconds,'average_mA':round(avg,3),'days':round(days,1)})
+    assert len(rows)==4 and abs(rows[0]['average_mA']-1.54)<1e-9
+    assert rows[2]['days']>rows[0]['days'] and rows[1]['days']<rows[0]['days']
+    return rows
+
+def battery_image():
+    im=Image.open(ROOT/'cad/renders/electronics_stack.png').convert('RGB')
+    d=ImageDraw.Draw(im)
+    font=ImageFont.truetype('C:/Windows/Fonts/arialbd.ttf',30)
+    def callout(rect,text,target):
+        d.rounded_rectangle(rect,radius=12,fill='white',outline='#263c4b',width=3)
+        d.text((rect[0]+14,rect[1]+14),text,font=font,fill='#172b3a')
+        a=((rect[0]+rect[2])//2,rect[3]);d.line([a,target],fill='#b55220',width=6)
+        x,y=target;d.ellipse((x-9,y-9,x+9,y+9),fill='#b55220')
+    callout((20,35,610,130),'XIAO BAT pads inside module stack',(1015,310))
+    callout((25,940,550,1045),'Battery below carrier PCB',(750,1025))
+    im.save(PRE/'05-images/battery-location.png')
+
+def copy_previews():
+    mapping={
+      'outputs/board.step':'01-pcb/pcb-carrier.step',
+      'outputs/assembly-top.svg':'01-pcb/assembly-front.svg',
+      'outputs/assembly-bottom.svg':'01-pcb/assembly-back.svg',
+      'cad/STEP/electronics_stack.step':'02-connected-electronics/electronics-stack.step',
+      'cad/GLB/electronics_stack.glb':'02-connected-electronics/electronics-stack.glb',
+      'cad/renders/pcb-only.png':'05-images/pcb-only.png',
+    }
+    for name in ('product_oled','product_status','exploded_oled','exploded_status'):
+        for fmt in ('STEP','GLB'):
+            mapping[f'cad/{fmt}/{name}.{fmt.lower()}']=f'04-complete-product/{name}.{fmt.lower()}'
+    for name in ('base','lid','sensor_mask','sensor_retainer','front_oled','front_blank','oled_retainer','light_pipe','fit_coupon'):
+        mapping[f'cad/GLB/{name}.glb']=f'03-enclosure/parts/{name}.glb'
+    for name in ('electronics_stack','exploded_oled','exploded_status','product_oled','product_status','parts-review','final-preview'):
+        mapping[f'cad/renders/{name}.png']=f'05-images/{name}.png'
+    for original,dest in mapping.items():
+        target=PRE/dest;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/original,target)
+    (PRE/'preview-copies.json').write_text(json.dumps(mapping,indent=2),encoding='utf-8')
+    battery_image()
+
+def pages():
+    rows=runtime_rows()
+    return [
+    [('h','SmartPark Revision D build guide'),
+     ('p','Final design package for the indoor low cost pilot. This guide covers the PCB, purchased parts, assembly, firmware connections, battery, solar input and two enclosure variants. Updated 26 October 2026.'),
+     ('img','previews/05-images/final-preview.png','OLED and status versions with their electronics and exploded assembly',5.9),
+     ('h2','Product and application'),
+     ('p','One node mounts above a parking bay with both HC-SR04 transducers facing the floor. Firmware compares measured distance against a calibrated empty bay and sends occupancy over LoRa to a separate receiver or gateway and dashboard. The node does not include a gateway or application server.'),
+     ('t',['Property','Selected design'],[['Controller and radio','XIAO ESP32S3 with Wio-SX1262 kit'],['Sensing','HC-SR04, indoor, ceiling height up to 2.8 m'],['Update target','Distance sample every 5 to 10 seconds; event based radio reporting'],['Board and case','62 x 50 x 1.6 mm PCB; closed body 70 x 66 x 50.4 mm; ears extend width to 94 mm'],['Versions','Same PCB Gerbers; optional OLED population and interchangeable front panel']]),
+     ('p','Release status: digitally checked files for a first prototype. Electrical operation, battery life, sensor fit, printed latch life and installed RF performance require physical validation.')],
+    [('h','Models and file map'),
+     ('p','Open GLB files for fast rotation and STEP files for CAD measurement. The numbered previews folders contain copies of the final models, not older revisions. Manufacturing STL and 3MF files remain under cad.'),
+     ('t',['Folder','Contents'],[['previews/01-pcb','Carrier STEP, front and back copper SVG, assembly SVG'],['previews/02-connected-electronics','Carrier, module stack, sensor, battery and RF connector references in STEP and GLB'],['previews/03-enclosure','OLED and blank enclosure assemblies plus individual part GLBs'],['previews/04-complete-product','Closed and exploded complete products, both variants, STEP and GLB'],['previews/05-images','PCB, electronics, battery placement, parts and finished product images'],['hardware and outputs','Editable KiCad sources, Gerbers, drills, schematic, BOM and placement files']]),
+     ('img','previews/05-images/exploded_oled.png','OLED assembly with lid and panel separated to show the installed electronics',4.8),
+     ('p','Some purchased bodies are clearance envelopes. Solder fillets, flexible wiring, fasteners and the finished tuned antenna are not fully modeled. The models describe intended assembly, not a photograph of built hardware.')],
+    [('h','PCB front and back views'),
+     ('p','Front and back SVGs are native KiCad copper and silkscreen plots. The back preview is mirrored for viewing the underside. Fabrication Gerbers must be uploaded unchanged; never mirror them.'),
+     ('img','previews/01-pcb/pcb-front.png','PCB front copper and silkscreen',4.65),
+     ('img','previews/01-pcb/pcb-back.png','PCB underside copper and silkscreen viewed from below',4.65),
+     ('p','D1 RGB pixel and C7 are on the underside, facing the light pipe. Top and bottom component outlines are also available as assembly-front.svg and assembly-back.svg. Both variants use the same two layer 1.6 mm FR4 fabrication files.')],
+    [('h','Purchased modules and power parts'),
+     ('p','Buy the complete kit and exact display variant. Product links identify real listings or manufacturer ordering pages; they do not certify current stock, supplier quality or sample fit.'),
+     ('t',['Qty','Part','Selection and fit','Product source'],MODULES),
+     ('h2','Battery location and electrical connection'),
+     ('p','The pouch rests flat in the base tray beneath the carrier PCB, toward the OLED or blank front panel. The HC-SR04 occupies the adjacent bottom area. Place 1 mm insulating foam below the pouch and retain it with a nonconductive strap.'),
+     ('p','There is no battery connector on the carrier PCB. The protected pack connects through a matching two pin pigtail soldered to the XIAO BAT plus and BAT minus pads before the Wio board is attached. Verify actual pad labels and connector polarity. The symbol J4 is an off board contact, not a part to solder onto the carrier.'),
+     ('p','The Probots pack is a sourcing candidate only and was listed out of stock at review. Its advertised size is approximately 50 x 34 x 5 mm. Obtain the total protected pack dimensions including PCM, pouch seals and lead exit before ordering.')],
+    [('h','Components to solder onto the carrier'),
+     ('p','A fabricated bare PCB contains no electronic parts. Fit the following components unless supplied as an assembled PCB. The boost exposed pad needs a controlled reflow process. Verify pin 1 and the special bottom pixel pad mapping before soldering.'),
+     ('t',['Refs','Qty','Part or value','Package and assembly note','Product source'],PARTS[:8]),
+     ('p','C4 and C6 bypass the 3.3 V logic supplies; C5 and C7 bypass the switched 5 V supplies. Keep the exact input and output capacitor families or recheck DC bias derating before substitution. Test pads TP1 to TP5 and four mounting holes need no parts.')],
+    [('h','Carrier passives and connectors'),
+     ('p','The passive MPNs marked candidate are sourcing examples for the released generic values and footprints. They are not a silently changed KiCad BOM. Review their dimensions and ratings with the assembler.'),
+     ('t',['Refs','Qty','Part or value','Package and assembly note','Product source'],PARTS[8:]),
+     ('p','OLED version: fit J2, R8 and R9. No OLED version: omit all three plus the OLED module and cable. The shared Gerbers support both. Use outputs/BOM.csv or BOM-no-OLED.csv and the corresponding SMD placement file.'),
+     ('p','U1 is two through hole sockets, not an SMT XIAO module. The 0.6 mm air gap above the male plastic is mandatory for the modeled USB mounting tab clearance. The temporary soldering shim is removed after soldering.')],
+    [('h','Harnesses and mechanical hardware'),
+     ('p','These items are required in addition to the fabricated board and soldered electronics. Harnesses, exact male headers, antenna and screws remain dimension controlled selections rather than procurement cleared MPNs.'),
+     ('t',['Item','Qty','Specification','Fit check'],ACCESSORIES),
+     ('p','Use the connector product links on the preceding pages to source mating families, then check continuity with a meter. A JST PH sensor connector has 2 mm spacing; the HC-SR04 module header uses 2.54 mm spacing. A straight four wire cable must map between them correctly.')],
+    [('h','Programming pinout and peripheral cables'),
+     ('p','Use GPIO numbers below when configuring firmware. D labels are the Seeed board names. Full pad orientation and all reserved connections are in docs/PINOUT.md and outputs/schematics.png.'),
+     ('t',['Signal','XIAO pad','ESP32 S3 pin','Function'],GPIO),
+     ('h2','Ultrasonic connector J1'),
+     ('t',['J1 pin','Connect to HC-SR04','Electrical path'],[['1','VCC','Switched 5V_SENSOR'],['2','TRIG','D0 / GPIO1, 3.3 V output'],['3','ECHO','Raw sensor echo to U4; buffered output goes to D1 / GPIO2'],['4','GND','Common return']]),
+     ('h2','Optional OLED connector J2'),
+     ('p','Pin 1 GND, pin 2 3V3, pin 3 SCL to GPIO6, pin 4 SDA to GPIO5. Power the module at 3.3 V. Scan the I2C bus to determine the delivered address; do not assume 0x3C without testing. Review onboard display pullups alongside carrier R8 and R9.'),
+     ('p','RGB D1 is already on the PCB, not an external LED socket. Configure one WS2812 compatible pixel on GPIO43 through U3. Verify color order on the first unit. It shares 5V_SENSOR with HC-SR04; turning the boost off turns both off.')],
+    [('h','Battery fit charging and external solar'),
+     ('img','previews/05-images/battery-location.png','Battery sits under carrier; lead runs to XIAO BAT pads inside the stack',5.8),
+     ('p','Recommended starting capacity is 1500 mAh, about 5.55 Wh nominal at 3.7 V. Use a protected single cell LiPo or equivalent 4.2 V charge pouch pack. Do not use a 3.2 V LiFePO4 pack, two cells in series or an 18650 in this unchanged tray.'),
+     ('p','Reference battery envelope is 51 x 34 x 5 mm, plus 1 mm foam beneath. The nominal tray is about 52 x 35 mm; seals, PCM, strain relief and lead routing must remain clear. Capacity labels do not establish fit. A larger capacity needs a separately checked pack or case redesign.'),
+     ('p','Feed an externally regulated 5 V solar USB output into the XIAO USB-C port. Use service USB or solar, one at a time. The XIAO is the only cell charger; no raw panel input, MPPT or parallel cell charger is on the carrier.'),
+     ('p','Seeed sources disagree on fast charge current: the general XIAO page lists 50 mA and the kit page lists 100 mA. Verify the delivered board. For 1500 mAh, capacity divided by those currents is already 15 to 30 hours before charge taper and running load. A short sunny period does not fully recharge an empty battery.'),
+     ('p',source('xiaowiki')+'; '+source('wiowiki')+'; '+source('solar'))],
+    [('h','Estimated battery runtime'),
+     ('p','Planning result for a 1500 mAh pack is about 12 to 61 days, depending on firmware awake time and sample interval. This is a scenario calculation, not a measured lifetime. Use the no OLED variant for the first battery life test.'),
+     ('t',['Poll interval','Wake scenario','Average at battery','Estimated days'],[[str(r['interval_s'])+' s',r['mode'],str(r['average_mA'])+' mA',str(r['days'])] for r in rows]),
+     ('p','Model assumptions: 80% usable capacity (1200 mAh); whole node sleep 0.05 mA; fast wake 60 mA for 0.12 s or slower wake 70 mA for 0.30 s; a separate 150 mA radio event for 0.10 s every 300 s. WiFi and BLE are off. OLED is omitted or in a verified low current display off mode. RGB only flashes briefly and the boost is off between polls.'),
+     ('p','Average mA = sleep mA + awake mA x awake seconds / poll seconds + radio mA x radio seconds / report seconds. Days = 1500 x 0.8 / average mA / 24. All model currents are battery side; do not add a second converter efficiency factor to them.'),
+     ('p','Research basis: Seeed lists 22 mA operating and 14 uA deep sleep for the base XIAO. The Wio module sheet lists 1.62 uA sleep, 7.6 mA receive and 125 mA transmit at 22 dBm. The HC-SR04 manual budgets 15 mA at 5 V. A conservative conversion estimate needs about 27 mA extra from 3.3 V during sensing at 85% boost efficiency; this is part of the assumed 60 to 70 mA awake total.'),
+     ('p','Continuous RGB holds the shared sensor rail on. The sensor alone can add roughly 27 mA before the MCU and LED load: at 30 to 60 mA total the same usable capacity gives about 20 to 40 hours. An always awake controller can also reduce life to days. Continuous OLED or radio receive further reduces it.'),
+     ('p','At 5 mA additional battery side display load, the 10 s fast wake example drops from 61 days to about 8.6 days; at 15 mA it drops to about 3.2 days. Those display loads are illustrative, not measured OLED specifications.'),
+     ('p','The radio budget assumes short occasional LoRa reports. LoRaWAN receive windows, joins, high spreading factors, retries and frequent events require a new measured budget. Solar can extend runtime only when measured daily harvested energy exceeds total node demand.'),
+     ('p',source('xiaowiki')+'; '+source('wiodata')+'; '+source('hcdata'))],
+    [('h','Enclosure print parts and assembly'),
+     ('p','OLED version installs seven printed parts; status only installs six. Across both variants there are eight distinct installed part designs plus one optional fit coupon, nine print files total. Print individual STL or 3MF parts, never product or electronics assemblies.'),
+     ('t',['Part name','OLED qty','No OLED qty','Purpose'],PRINTS),
+     ('img','previews/05-images/parts-review.png','Individual printable parts in their saved print orientation',5.0),
+     ('p','Start with PETG, 0.2 mm layers, 0.4 mm nozzle, four walls, five top and bottom layers, 30% infill. Use clear PETG for the light pipe. Inspect supports under opening roofs and ears; keep clip gaps free. Print the coupon first and validate the lid latch fit. See docs/PRINT_CHECK.md.')],
+    [('h','Assembly and firmware bring up'),
+     ('p','1. Inspect and reflow the bare carrier with its exact BOM. Check U2 exposed pad, IC orientations, bottom pixel orientation, solder bridges and continuity before installing the module kit or battery.'),
+     ('p','2. Fit the two female sockets. Solder matching male headers to the XIAO edge pads with the removable 0.6 mm gap shim; remove the shim. Pre solder the battery pigtail to BAT pads. Mate Wio and plug the stack into the carrier with XIAO components facing down and USB toward the rear.'),
+     ('p','3. Fit sensor, foam, protected battery and strap, carrier, light pipe and chosen front panel. Use the retainer and mask screws without obstructing sensor faces. For OLED, header edge faces up and four wires run to J2. Keep wires clear of clips, transducers, RF antenna and pouch edges.'),
+     ('p','4. With the battery disconnected, begin with a current limited bench source through USB-C. Hold GPIO4 BOOST_EN low. Initialize GPIO1 TRIG and GPIO43 RGB data low before enabling the sensor supply. Verify 3V3 and approximately 5.016 V only when enabled.'),
+     ('p','5. Upload through a USB data cable using the XIAO ESP32S3 board target. If needed use the delivered board BOOT and RESET procedure. Remove external solar while programming. The stock Meshtastic image is not the parking firmware.'),
+     ('p','6. After enabling the boost, allow at least 60 ms before the first measurement. Pulse TRIG for 10 us, time ECHO with a bounded timeout, and space HC-SR04 triggers at least 60 ms. Validate 3.3 V trigger acceptance on the purchased sensor lot.'),
+     ('p','7. Configure OLED I2C on SDA GPIO5 and SCL GPIO6 if fitted. Configure one WS2812 compatible pixel on GPIO43. The radio uses Seeed internal kit wiring; carrier D8 to D10 remain reserved. Verify radio driver mapping from the kit documentation.'),
+     ('p','8. Calibrate the empty bay with the installed sensor pointing straight down. Test vehicle roofs, adjacent bays, no echo, timeouts, temperature and alignment. Use hysteresis and confirmation samples; two confirmations can double the occupancy update delay to 10 to 20 seconds.'),
+     ('p','9. For the target battery life, deep sleep between polls, sleep the radio, disable WiFi and BLE, extinguish RGB and disable the boost. Send on occupancy changes with an explicitly chosen heartbeat interval. Firmware is not included or qualified in this release.'),
+     ('p','10. Measure the complete battery current waveform, startup duration, transmit peaks and no sun runtime on the actual device. Check latch engagement and ceiling retention before installation.')],
+    [('h','Fabrication checks and release limits'),
+     ('p','Upload outputs/SmartPark-RevD-PCB-Fabrication.zip to the board fabricator. It contains two copper layers, soldermask, silkscreen, paste, outline, separate plated and non plated drills, drill maps and job report. Keep every file at native scale and orientation.'),
+     ('t',['Check','Retained evidence'],[['Native ERC and DRC','0 reported violations; see verification/erc-final.json and drc-final.json'],['Routing and parity','0 unrouted and 0 schematic parity issues'],['Independent electrical audit','42 critical package pin checks; hashes bind PCB, schematic and board STEP'],['Mechanical checks','116 checks, 0 failures, one unverified commodity sensor dimension assumption'],['Print and assembly files','9 closed printable meshes; 5 saved electronics and product STEP/GLB assemblies checked'],['File integrity','SHA256SUMS.txt plus verification/delivery-check.json; preview copies checked against originals']]),
+     ('p','Native checks use the rule configuration in the delivered project, including its recorded ignored rule categories. Zero reported violations is not all possible manufacturing checks, EMC testing or production certification.'),
+     ('p','Before batch release, confirm exact battery protection and dimensions, socket and male header stack, sensor can pitch, OLED fit, print tolerances, latch cycling, installed mount strength, boost transient behavior, radio performance and measured runtime. The HC-SR04 enclosure is indoor only and has no IP rating.'),
+     ('p','Use an India appropriate radio profile and resolve applicable equipment and RF requirements before deployment. The 22 dBm datasheet number used in the current budget is not a transmit power recommendation for India.'),
+     ('p','The retained hardware, fabrication and mechanical geometry is unchanged from the checked RevD release. Documentation, organized preview copies, copper plots and package integrity records were added. Older FireBeetle designs and the working RevD folder were removed only after checking the retained release.')],
+    ]
+
+def inline(paragraph,text):
+    pos=0
+    for match in re.finditer(r'\[([^\]]+)\]\((https?://[^)]+)\)',text):
+        paragraph.add_run(text[pos:match.start()])
+        h=OxmlElement('w:hyperlink');h.set(qn('r:id'),paragraph.part.relate_to(match.group(2),RT.HYPERLINK,is_external=True))
+        run=OxmlElement('w:r');props=OxmlElement('w:rPr');c=OxmlElement('w:color');c.set(qn('w:val'),'175D8D');props.append(c);run.append(props)
+        t=OxmlElement('w:t');t.text=match.group(1);run.append(t);h.append(run);paragraph._p.append(h);pos=match.end()
+    paragraph.add_run(text[pos:])
+
+def table(document,headers,rows):
+    tab=document.add_table(rows=1,cols=len(headers));tab.alignment=WD_TABLE_ALIGNMENT.CENTER
+    tab.autofit=False
+    widths={2:[1.8,4.9],3:[.6,2,4.1],4:[.65,1.6,2.8,1.65],5:[.7,.45,1.8,2.4,1.35]}[len(headers)]
+    if headers[0]=='Signal':widths=[1.4,.75,1.25,3.3]
+    elif headers[0]=='Item':widths=[1.1,.45,3.25,1.9]
+    elif headers[0]=='Part name':widths=[1.4,.75,.85,3.7]
+    elif headers[0]=='Poll interval':widths=[1.15,2.05,2.1,1.4]
+    for col,w in zip(tab.columns,widths):col.width=Inches(w)
+    for c,h,w in zip(tab.rows[0].cells,headers,widths):c.width=Inches(w);inline(c.paragraphs[0],h)
+    hdr=OxmlElement('w:tblHeader');tab.rows[0]._tr.get_or_add_trPr().append(hdr)
+    for row in rows:
+        cells=tab.add_row().cells
+        for c,t,w in zip(cells,row,widths):c.width=Inches(w);inline(c.paragraphs[0],str(t))
+    borders=OxmlElement('w:tblBorders')
+    for k in ['top','left','bottom','right','insideH','insideV']:
+        b=OxmlElement('w:'+k);b.set(qn('w:val'),'single');b.set(qn('w:sz'),'4');b.set(qn('w:color'),'D9D9D9');borders.append(b)
+    tab._tbl.tblPr.append(borders)
+    for i,row in enumerate(tab.rows):
+        no=OxmlElement('w:cantSplit');row._tr.get_or_add_trPr().append(no)
+        for j,c in enumerate(row.cells):
+            c.vertical_alignment=WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            tcPr=c._tc.get_or_add_tcPr();shade=OxmlElement('w:shd');shade.set(qn('w:fill'),'264657' if i==0 else ('F3F6F8' if i%2==0 else 'FFFFFF'));tcPr.append(shade)
+            margins=OxmlElement('w:tcMar')
+            for k in ['top','left','bottom','right']:
+                e=OxmlElement('w:'+k);e.set(qn('w:w'),'85');e.set(qn('w:type'),'dxa');margins.append(e)
+            tcPr.append(margins)
+            for p in c.paragraphs:
+                p.paragraph_format.space_after=Pt(2);p.paragraph_format.space_before=Pt(2)
+                p.paragraph_format.line_spacing=1.05
+                if j==0 and len(headers)>2:p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+                for r in p.runs:r.font.size=Pt(9 if len(headers)>3 else 10);r.bold=i==0;r.font.color.rgb=RGBColor.from_string('FFFFFF' if i==0 else '111111')
+    document.add_paragraph().paragraph_format.space_after=Pt(0)
+
+def make_document():
+    document=Document();sec=document.sections[0];sec.page_width=Inches(8.3);sec.page_height=Inches(11.7)
+    sec.top_margin=sec.bottom_margin=Inches(.62);sec.left_margin=sec.right_margin=Inches(.8)
+    normal=document.styles['Normal'];normal.font.name='Calibri';normal.font.size=Pt(10.5);normal.paragraph_format.space_after=Pt(7)
+    normal.paragraph_format.line_spacing=1.08
+    for s in ['Title','Heading 1','Heading 2']:
+        document.styles[s].font.color.rgb=RGBColor(0,0,0)
+        document.styles[s].font.name='Calibri'
+    document.styles['Title'].font.size=Pt(25);document.styles['Heading 1'].font.size=Pt(19);document.styles['Heading 2'].font.size=Pt(13)
+    for border in document.styles.element.xpath('.//w:pBdr'):
+        border.getparent().remove(border)
+    footer=sec.footer.paragraphs[0];footer.alignment=WD_ALIGN_PARAGRAPH.RIGHT
+    footer.add_run('SmartPark RevD  |  ')
+    field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)
+    md=[]
+    for page_i,blocks in enumerate(pages()):
+        if page_i:document.add_page_break()
+        for b in blocks:
+            kind=b[0]
+            if kind in ('h','h2'):
+                document.add_paragraph(b[1],style='Title' if page_i==0 and kind=='h' else ('Heading 1' if kind=='h' else 'Heading 2'))
+                md.extend([('# ' if kind=='h' else '## ')+b[1],''])
+            elif kind=='p':inline(document.add_paragraph(),b[1]);md.extend([b[1],''])
+            elif kind=='t':
+                table(document,b[1],b[2]);md.append('| '+' | '.join(b[1])+' |');md.append('| '+' | '.join(['---']*len(b[1]))+' |')
+                md.extend('| '+' | '.join(str(x).replace('|','/') for x in row)+' |' for row in b[2]);md.append('')
+            elif kind=='img':
+                image=ROOT/b[1];assert image.is_file(),image
+                p=document.add_paragraph();p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+                p.paragraph_format.keep_with_next=True
+                shape=p.add_run().add_picture(str(image),width=Inches(b[3]));shape._inline.docPr.set('descr',b[2])
+                caption=document.add_paragraph(b[2]);caption.alignment=WD_ALIGN_PARAGRAPH.CENTER
+                caption.paragraph_format.space_after=Pt(8)
+                for r in caption.runs:r.italic=True;r.font.size=Pt(9)
+                md.extend([f'![{b[2]}](../{b[1]})',''])
+    document.core_properties.title='SmartPark Revision D build guide';document.core_properties.subject='PCB assembly mechanical parts power and firmware connections'
+    document.core_properties.author='SmartPark project';document.save(DOC/'SmartPark-RevD-Build-Guide.docx')
+    (DOC/'SmartPark-RevD-Build-Guide.md').write_text('\n'.join(md),encoding='utf-8')
+    (DOC/'battery-runtime-scenarios.json').write_text(json.dumps({'capacity_mAh':1500,'usable_fraction':.8,'sleep_mA':.05,'radio_mA':150,'radio_s':.1,'report_interval_s':300,'scenarios':runtime_rows(),'qualification':'assumed battery-side currents, not measured'},indent=2),encoding='utf-8')
+    with (DOC/'parts-and-product-links.csv').open('w',newline='',encoding='utf-8-sig') as f:
+        writer=csv.writer(f);writer.writerow(['Reference','Quantity','Part','Specification','Product source'])
+        for row in MODULES:writer.writerow(['Off board',*row])
+        writer.writerows(PARTS)
+        for row in ACCESSORIES:writer.writerow([row[0],row[1],row[2],row[3],'Dimension controlled procurement item'])
+
+if __name__=='__main__':
+    copy_previews();make_document();print('Created illustrated DOCX, matching Markdown, product table and battery scenarios')

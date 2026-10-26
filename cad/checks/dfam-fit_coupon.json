@@ -1,0 +1,132 @@
+{
+  "file": "C:\\Users\\rajra\\.codex\\visualizations\\2026\\10\\22\\01a1636c-dc70-7193-9430-ce7daa96cf65\\smart-marking-pcb\\revision-d\\cad\\STL\\fit_coupon.stl",
+  "mesh": {
+    "bbox_mm": [
+      46.0,
+      23.9,
+      22.0
+    ],
+    "volume_mm3": 3680.3,
+    "surface_area_mm2": 3803.6,
+    "triangle_count": 888,
+    "watertight": true,
+    "euler_number": -4,
+    "body_count": 1
+  },
+  "scale": {
+    "bbox_diagonal_mm": 56.3135,
+    "units_suspect": false,
+    "note": "bbox consistent with millimetre units"
+  },
+  "overhangs": {
+    "angle_limit_used_deg": 45.0,
+    "down_facing_area_below_limit_mm2": 19.68,
+    "down_facing_area_below_limit_pct": 0.5,
+    "face_count_below_limit": 2,
+    "down_facing_angle_histogram_mm2": {
+      "0-10deg": 19.68
+    },
+    "largest_faces_below_limit": [
+      {
+        "location_xyz": [
+          21.63,
+          22.3,
+          7.5
+        ],
+        "surface_angle_deg": 0.0,
+        "area_mm2": 9.84
+      },
+      {
+        "location_xyz": [
+          24.37,
+          23.1,
+          7.5
+        ],
+        "surface_angle_deg": 0.0,
+        "area_mm2": 9.84
+      }
+    ]
+  },
+  "wall_thickness": {
+    "samples_valid": 888,
+    "min_mm": 2.4,
+    "p05_mm": 2.4,
+    "p25_mm": 2.4,
+    "median_mm": 2.4,
+    "max_mm": 46.0,
+    "thinnest_samples": [
+      {
+        "location_xyz": [
+          12.6,
+          23.9,
+          4.0
+        ],
+        "thickness_mm": 2.4
+      },
+      {
+        "location_xyz": [
+          21.63,
+          23.9,
+          17.17
+        ],
+        "thickness_mm": 2.4
+      },
+      {
+        "location_xyz": [
+          21.63,
+          23.9,
+          17.17
+        ],
+        "thickness_mm": 2.4
+      },
+      {
+        "location_xyz": [
+          21.63,
+          23.9,
+          17.17
+        ],
+        "thickness_mm": 2.4
+      },
+      {
+        "location_xyz": [
+          21.63,
+          23.9,
+          17.17
+        ],
+        "thickness_mm": 2.4
+      },
+      {
+        "location_xyz": [
+          21.63,
+          23.9,
+          17.17
+        ],
+        "thickness_mm": 2.4
+      },
+      {
+        "location_xyz": [
+          21.63,
+          23.9,
+          17.17
+        ],
+        "thickness_mm": 2.4
+      },
+      {
+        "location_xyz": [
+          21.63,
+          23.9,
+          17.17
+        ],
+        "thickness_mm": 2.4
+      }
+    ]
+  },
+  "support_volume": {
+    "angle_limit_used_deg": 45.0,
+    "estimated_support_volume_mm3": 147.6,
+    "part_volume_mm3": 3680.3,
+    "support_to_part_ratio_pct": 4.0,
+    "method": "prism from face centroid to build plate; coarse upper-bound estimate"
+  },
+  "partial": false
+}

@@ -1,0 +1,12 @@
+{
+  "oled": {
+    "solids": 7,
+    "valid": true,
+    "sha256": "14561c3e7326d292edd8ced045241f28ddb4025bd72fdf49fe8ae57f846e9ba7"
+  },
+  "no-oled": {
+    "solids": 6,
+    "valid": true,
+    "sha256": "e7f8db9585a297d4b3c361fb161cef86b8235f3caa77e168ea95efa3c1b681a0"
+  }
+}

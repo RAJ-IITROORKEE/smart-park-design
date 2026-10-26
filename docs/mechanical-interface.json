@@ -1,0 +1,121 @@
+{
+  "board_mm": [
+    62,
+    50,
+    1.6
+  ],
+  "board_mounts_kicad": [
+    [
+      2.5,
+      3
+    ],
+    [
+      59.5,
+      3
+    ],
+    [
+      2.5,
+      47
+    ],
+    [
+      59.5,
+      47
+    ]
+  ],
+  "step_to_case": [
+    -31,
+    25,
+    21.535
+  ],
+  "step_rotation": [
+    0,
+    0,
+    0
+  ],
+  "case_body_mm": [
+    70,
+    66,
+    48
+  ],
+  "case_closed_height_mm": 50.4,
+  "pcb_bottom_case_z": 21.535,
+  "stack": {
+    "case_translation": [
+      0,
+      14.5,
+      39.835
+    ],
+    "component_plane_source_z": -5.1,
+    "carrier_top_to_xiao_component_plane": 11.6,
+    "provenance": "Official module CAD; 8.5mm female + 2.5mm male shoulder + 0.6mm removable soldering shim gap clears XIAO USB anchors. Use male short legs >=3mm; physical sample pending.",
+    "male_header_to_xiao_air_gap_mm": 0.6
+  },
+  "usb": {
+    "case_x": 0,
+    "case_z": 34.335,
+    "opening_width": 14,
+    "opening_height": 7.6
+  },
+  "sensor": {
+    "body": [
+      45,
+      20,
+      15
+    ],
+    "can_pitch_mm": 26,
+    "can_diameter_mm": 16,
+    "can_front_z": 0.5,
+    "pcb_front_z": 12.5,
+    "case_y": 17.5,
+    "can_geometry_status": "NOMINAL_SAMPLE_FIT_REQUIRED"
+  },
+  "battery": {
+    "envelope": [
+      51,
+      34,
+      5
+    ],
+    "case_center": [
+      0,
+      -11
+    ],
+    "bottom_z": 3.4,
+    "protection": "RequiredPCMprotectedpack; finalsupplierpolarityanddimensionconfirmationrequired"
+  },
+  "antenna": {
+    "bulkhead_axis": "X",
+    "center_yz": [
+      0,
+      40
+    ],
+    "bore": 6.6,
+    "connector_status": "genericSMAfemalequarterinchbulkheadenvelope; samplefitrequired"
+  },
+  "oled": {
+    "model": "GoldenMorning GME12864-11 / Robu617725",
+    "pcb_mm": [
+      27.8,
+      27.5,
+      1.2
+    ],
+    "active_center_z": 27.6,
+    "pcb_z_range": [
+      11.75,
+      39.25
+    ],
+    "retainer_z_range": [
+      9.2,
+      43.3
+    ],
+    "retainer_battery_clearance_mm": 0.8,
+    "front_panel_mm": [
+      56,
+      40,
+      2.4
+    ],
+    "fit_status": "SUPPLIER_DRAWING_REFERENCE_SAMPLE_REQUIRED"
+  },
+  "pcb_seating_plane_case_z": 21.5,
+  "copper_seating_correction_mm": 0.035,
+  "copper_seating_note": "KiCad exported bottom copper occupies local Z=-0.035..0. Seat the copper underside, not the FR4 datum, on the printed standoffs."
+}

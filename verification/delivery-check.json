@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "critical_design_hashes_unchanged": {
+    "hardware/SmartMark.kicad_pcb": "6ff80b236ef77641ff8314eb44453d8485a9d75159a88e07c161493016356d19",
+    "hardware/SmartMark.kicad_sch": "5a306b35b28b4e8d1bef26f5aa2856024e60da3f7c4e61dec902cd1a81a2edd2",
+    "outputs/board.step": "fdb89e5e99ed32ec80d92066ff5617937cf2f207b085a7ebe7ca51417414bbcd"
+  },
+  "fabrication_files_unchanged": 15,
+  "preview_copies_identical": 30,
+  "local_markdown_links_checked": 93,
+  "runtime_scenarios_checked": 4,
+  "docx_and_zip_crc": "pass"
+}

@@ -1,0 +1,9 @@
+{
+  "jobs": [
+    {"input":"STEP/electronics_stack.step","outputs":[{"path":"renders/electronics_stack.png","camera":"iso"}],"output":{"sizeProfile":"assembly"}},
+    {"input":"STEP/product_oled.step","outputs":[{"path":"renders/product_oled.png","camera":{"direction":[1,-1,-0.7]}}],"output":{"sizeProfile":"assembly"}},
+    {"input":"STEP/product_status.step","outputs":[{"path":"renders/product_status.png","camera":{"direction":[1,-1,-0.7]}}],"output":{"sizeProfile":"assembly"}},
+    {"input":"STEP/exploded_oled.step","outputs":[{"path":"renders/exploded_oled.png","camera":"iso"}],"output":{"sizeProfile":"assembly"}},
+    {"input":"STEP/exploded_status.step","outputs":[{"path":"renders/exploded_status.png","camera":"iso"}],"output":{"sizeProfile":"assembly"}}
+  ]
+}

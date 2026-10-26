@@ -1,0 +1,51 @@
+{
+  "file": "C:\\Users\\rajra\\.codex\\visualizations\\2026\\10\\22\\01a1636c-dc70-7193-9430-ce7daa96cf65\\smart-marking-pcb\\revision-d\\cad\\STL\\light_pipe.stl",
+  "scale": {
+    "bbox_diagonal_mm": 20.9881,
+    "units_suspect": false,
+    "note": "bbox consistent with millimetre units"
+  },
+  "orientations": {
+    "angle_limit_used_deg": 45.0,
+    "pct_denominator": "total surface area",
+    "candidates": [
+      {
+        "orientation": "current_plus_z",
+        "support_area_mm2": 8.83,
+        "support_area_pct": 3.9,
+        "build_height_mm": 20.0
+      },
+      {
+        "orientation": "flip_180_x",
+        "support_area_mm2": 8.84,
+        "support_area_pct": 3.9,
+        "build_height_mm": 20.0
+      },
+      {
+        "orientation": "rot_plus_90_x",
+        "support_area_mm2": 46.92,
+        "support_area_pct": 20.8,
+        "build_height_mm": 4.5
+      },
+      {
+        "orientation": "rot_minus_90_x",
+        "support_area_mm2": 46.92,
+        "support_area_pct": 20.8,
+        "build_height_mm": 4.5
+      },
+      {
+        "orientation": "rot_plus_90_y",
+        "support_area_mm2": 46.9,
+        "support_area_pct": 20.8,
+        "build_height_mm": 4.5
+      },
+      {
+        "orientation": "rot_minus_90_y",
+        "support_area_mm2": 46.9,
+        "support_area_pct": 20.8,
+        "build_height_mm": 4.5
+      }
+    ]
+  },
+  "partial": false
+}

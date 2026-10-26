@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "parts": [
+    {
+      "ref": "U1",
+      "libId": "SmartMark:XIAO_S3_WIO_STACK",
+      "value": "XIAO ESP32-S3",
+      "footprint": "SmartMark:XIAO_S3_STACK_SOCKET_2x7",
+      "group": "Controller stack"
+    },
+    {
+      "ref": "BT1",
+      "libId": "SmartMark:Protected_LiPo",
+      "value": "3.7V LiPo",
+      "footprint": "",
+      "group": "Battery harness"
+    },
+    {
+      "ref": "J3",
+      "libId": "Connector_Generic:Conn_01x02",
+      "value": "PH2.0",
+      "footprint": "",
+      "group": "Battery harness"
+    },
+    {
+      "ref": "J4",
+      "libId": "SmartMark:XIAO_BAT_CONTACTS",
+      "value": "XIAO BAT pad",
+      "footprint": "",
+      "group": "Battery harness"
+    },
+    {
+      "ref": "U2",
+      "libId": "SmartMark:TPS61099DRV",
+      "value": "TPS61099DRVR",
+      "footprint": "Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "U3",
+      "libId": "Logic_LevelTranslator:SN74LVC1T45DBV",
+      "value": "SN74LVC1T45DBVR",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "U4",
+      "libId": "74xGxx:74LVC1G17",
+      "value": "SN74LVC1G17DBVR",
+      "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+      "group": "HC-SR04 interface"
+    },
+    {
+      "ref": "J1",
+      "libId": "Connector_Generic:Conn_01x04",
+      "value": "HC-SR04 5V",
+      "footprint": "Connector_JST:JST_PH_B4B-PH-K_1x04_P2.00mm_Vertical",
+      "group": "HC-SR04 interface"
+    },
+    {
+      "ref": "J2",
+      "libId": "Connector_Generic:Conn_01x04",
+      "value": "0.96in OLED",
+      "footprint": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
+      "group": "Optional OLED"
+    },
+    {
+      "ref": "D1",
+      "libId": "SmartMark:WS2812B_2020_V6",
+      "value": "WS2812B-2020-V6",
+      "footprint": "SmartMark:WS2812B_2020_V6",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "L1",
+      "libId": "Device:L",
+      "value": "2.2uH",
+      "footprint": "SmartMark:VLS3012CX_2R2M",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "C1",
+      "libId": "Device:C",
+      "value": "10uF 10V X7R",
+      "footprint": "Capacitor_SMD:C_0805_2012Metric",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "C2",
+      "libId": "Device:C",
+      "value": "22uF 16V X7R",
+      "footprint": "Capacitor_SMD:C_1206_3216Metric",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "C3",
+      "libId": "Device:C",
+      "value": "22uF 16V X7R",
+      "footprint": "Capacitor_SMD:C_1206_3216Metric",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "C4",
+      "libId": "Device:C",
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "group": "HC-SR04 interface"
+    },
+    {
+      "ref": "C5",
+      "libId": "Device:C",
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "C6",
+      "libId": "Device:C",
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "C7",
+      "libId": "Device:C",
+      "value": "100nF",
+      "footprint": "Capacitor_SMD:C_0603_1608Metric",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "R1",
+      "libId": "Device:R",
+      "value": "1M",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "R2",
+      "libId": "Device:R",
+      "value": "249k",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "R3",
+      "libId": "Device:R",
+      "value": "100k EN pulldown",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "5V sensor supply"
+    },
+    {
+      "ref": "R4",
+      "libId": "Device:R",
+      "value": "100k HC_ECHO pulldown",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "HC-SR04 interface"
+    },
+    {
+      "ref": "R5",
+      "libId": "Device:R",
+      "value": "330R LED series",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "R6",
+      "libId": "Device:R",
+      "value": "100k LED_DIN pulldown",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "R7",
+      "libId": "Device:R",
+      "value": "100k LED_DATA pulldown",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "Optional RGB"
+    },
+    {
+      "ref": "R8",
+      "libId": "Device:R",
+      "value": "4.7k SDA pullup",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "Optional OLED"
+    },
+    {
+      "ref": "R9",
+      "libId": "Device:R",
+      "value": "4.7k SCL pullup",
+      "footprint": "Resistor_SMD:R_0603_1608Metric",
+      "group": "Optional OLED"
+    },
+    {
+      "ref": "TP1",
+      "libId": "Connector:TestPoint",
+      "value": "3V3",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "group": "Bring-up test points"
+    },
+    {
+      "ref": "TP2",
+      "libId": "Connector:TestPoint",
+      "value": "GND",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "group": "Bring-up test points"
+    },
+    {
+      "ref": "TP3",
+      "libId": "Connector:TestPoint",
+      "value": "5V_SENSOR",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "group": "Bring-up test points"
+    },
+    {
+      "ref": "TP4",
+      "libId": "Connector:TestPoint",
+      "value": "HC_ECHO",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "group": "Bring-up test points"
+    },
+    {
+      "ref": "TP5",
+      "libId": "Connector:TestPoint",
+      "value": "ECHO_GPIO",
+      "footprint": "TestPoint:TestPoint_Pad_D1.0mm",
+      "group": "Bring-up test points"
+    }
+  ],
+  "nets": [
+    {
+      "name": "BAT_POS",
+      "kind": "power",
+      "pins": [
+        "BT1.1",
+        "J3.1",
+        "J4.1"
+      ]
+    },
+    {
+      "name": "3V3",
+      "kind": "power",
+      "pins": [
+        "U1.12",
+        "U2.6",
+        "U3.1",
+        "U3.5",
+        "U4.5",
+        "J2.2",
+        "L1.1",
+        "C1.1",
+        "C4.1",
+        "C6.1",
+        "R8.1",
+        "R9.1",
+        "TP1.1"
+      ]
+    },
+    {
+      "name": "GND",
+      "kind": "ground",
+      "pins": [
+        "BT1.2",
+        "J3.2",
+        "J4.2",
+        "U1.13",
+        "U2.1",
+        "U2.7",
+        "U3.2",
+        "U4.3",
+        "J1.4",
+        "J2.1",
+        "D1.2",
+        "C1.2",
+        "C2.2",
+        "C3.2",
+        "C4.2",
+        "C5.2",
+        "C6.2",
+        "C7.2",
+        "R2.2",
+        "R3.2",
+        "R4.2",
+        "R6.2",
+        "R7.2",
+        "TP2.1"
+      ]
+    },
+    {
+      "name": "5V_SENSOR",
+      "kind": "power",
+      "pins": [
+        "U2.2",
+        "U3.6",
+        "J1.1",
+        "D1.4",
+        "C2.1",
+        "C3.1",
+        "C5.1",
+        "C7.1",
+        "R1.1",
+        "TP3.1"
+      ]
+    },
+    {
+      "name": "BOOST_SW",
+      "kind": "signal",
+      "pins": [
+        "U2.5",
+        "L1.2"
+      ]
+    },
+    {
+      "name": "BOOST_FB",
+      "kind": "signal",
+      "pins": [
+        "U2.3",
+        "R1.2",
+        "R2.1"
+      ]
+    },
+    {
+      "name": "BOOST_EN",
+      "kind": "signal",
+      "pins": [
+        "U2.4",
+        "U1.4",
+        "R3.1"
+      ]
+    },
+    {
+      "name": "HC_TRIG",
+      "kind": "signal",
+      "pins": [
+        "U1.1",
+        "J1.2"
+      ]
+    },
+    {
+      "name": "HC_ECHO",
+      "kind": "signal",
+      "pins": [
+        "J1.3",
+        "U4.2",
+        "R4.1",
+        "TP4.1"
+      ]
+    },
+    {
+      "name": "ECHO_GPIO",
+      "kind": "signal",
+      "pins": [
+        "U4.4",
+        "U1.2",
+        "TP5.1"
+      ]
+    },
+    {
+      "name": "I2C_SDA",
+      "kind": "signal",
+      "pins": [
+        "U1.5",
+        "J2.4",
+        "R8.2"
+      ]
+    },
+    {
+      "name": "I2C_SCL",
+      "kind": "signal",
+      "pins": [
+        "U1.6",
+        "J2.3",
+        "R9.2"
+      ]
+    },
+    {
+      "name": "LED_DATA_3V3",
+      "kind": "signal",
+      "pins": [
+        "U1.7",
+        "U3.3",
+        "R7.1"
+      ]
+    },
+    {
+      "name": "LED_DATA_5V",
+      "kind": "signal",
+      "pins": [
+        "U3.4",
+        "R5.1"
+      ]
+    },
+    {
+      "name": "LED_DIN",
+      "kind": "signal",
+      "pins": [
+        "R5.2",
+        "D1.3",
+        "R6.1"
+      ]
+    }
+  ],
+  "noConnect": [
+    "U1.3",
+    "U1.8",
+    "U1.9",
+    "U1.10",
+    "U1.11",
+    "U1.14",
+    "U4.1",
+    "D1.1"
+  ],
+  "hints": {
+    "groupOrder": [
+      "Controller stack",
+      "Battery harness",
+      "HC-SR04 interface",
+      "5V sensor supply",
+      "Optional OLED",
+      "Optional RGB",
+      "Bring-up test points"
+    ],
+    "paper": "A3",
+    "date": "2026-10-26"
+  }
+}

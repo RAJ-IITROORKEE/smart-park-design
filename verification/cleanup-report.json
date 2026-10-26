@@ -1,0 +1,23 @@
+{
+  "status": "complete",
+  "date": "2026-10-26",
+  "method": "Windows Recycle Bin after retained archive CRC and per-file SHA verification",
+  "removed_design_directories": ["project", "revision-d"],
+  "removed_design_file_count": 728,
+  "removed_old_archives": [
+    "SmartMark-FireBeetle2-C6-Complete.zip",
+    "SmartMark-FireBeetle2-C6-Fabrication.zip",
+    "SmartMark-FireBeetle2-C6-OLED-RevB-Complete.zip",
+    "SmartMark-FireBeetle2-C6-OLED-RevB-Print-files.zip",
+    "SmartMark-FireBeetle2-C6-Print-files.zip",
+    "SmartMark-RevA-fabrication.zip",
+    "SmartMark-RevA-source-and-3D.zip"
+  ],
+  "temporary_document_QA_and_loose_preview_images_removed": true,
+  "retained_design": "SmartPark-XIAO-HCSR04-RevD-Final",
+  "support_runtimes_retained": "../tools",
+  "copperhead_repo_and_helpers_updated": true,
+  "solidcraft_allowed_directory_updated": true,
+  "MCP_reconnect_required": true,
+  "permanent_recursive_delete": "Automatic approval review rejected the command with blocked by policy; recoverable Recycle Bin removal succeeded instead."
+}

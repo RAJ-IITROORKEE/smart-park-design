@@ -1,0 +1,35 @@
+{
+  "status": "digitally checked pilot release",
+  "qualification": "unbuilt; physical first article required",
+  "pcb_mm": [
+    62,
+    50,
+    1.6
+  ],
+  "body_closed_mm": [
+    70,
+    66,
+    50.4
+  ],
+  "width_with_mounting_ears_mm": 94,
+  "erc_violations": 0,
+  "drc_violations": 0,
+  "unrouted": 0,
+  "schematic_parity": 0,
+  "independent_pin_checks": 42,
+  "cad_checks": 116,
+  "cad_failures": 0,
+  "geometry_unverified": "HC-SR04 can dimensions/pitch require sample measurement",
+  "closed_print_parts": 9,
+  "native_step_glb_assemblies": 5,
+  "header_air_gap_mm": 0.6,
+  "carrier_to_xiao_plane_mm": 11.6,
+  "power": "Protected 1S LiPo; external regulated 5V solar USB or service USB, one input; XIAO sole charger",
+  "limits": [
+    "Reference pack <=51x34x5mm; confirm PCM and polarity",
+    "Module, connector and header sample fit",
+    "PETG first print, local supports, latch/anchor tests",
+    "Sensor detection at <=2.8m, RF and battery/solar runtime",
+    "Some package bodies are conservative clearance envelopes; antenna/wires/fasteners are not complete cosmetic vendor CAD"
+  ]
+}

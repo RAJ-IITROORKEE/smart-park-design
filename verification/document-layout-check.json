@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "pages": 13,
+  "renderer": "Microsoft Word PDF export then pypdfium2 PNG rasterization",
+  "review": "All 13 latest page images visually inspected; no blank pages, clipped tables or title border; headings and product hyperlinks readable",
+  "docx_sha256": "14edf8293ad30a1d5e08976bf66bff6643f052b4d3ede33888e757ffa7db8b73",
+  "accessibility_report": "document-accessibility.json"
+}

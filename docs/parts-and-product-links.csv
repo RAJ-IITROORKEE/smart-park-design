@@ -1,0 +1,31 @@
+﻿Reference,Quantity,Part,Specification,Product source
+Off board,1,XIAO ESP32S3 and Wio-SX1262 kit 102010611,"Controller, LoRa radio and antennas. Use the complete S3 kit, not the nRF52840 version.",[Seeed kit product](https://www.seeedstudio.com/Wio-SX1262-with-XIAO-ESP32S3-p-5982.html); [Robocraze kit](https://robocraze.com/products/xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora)
+Off board,1,HC-SR04 ultrasonic module,5 V sensor. Nominal 2 cm to 4 m; intended mounting height up to 2.8 m indoors.,[Robu HC-SR04 SKU 2444](https://robu.in/product/hc-sr04-ultrasonic-range-finder/)
+Off board,0 or 1,GoldenMorning GME12864-11 OLED,"Optional 0.96 inch 128x64 SSD1306 I2C, white. PCB 27.8 x 27.5 mm; max module 3.5 mm.",[Robu OLED SKU 617725](https://robu.in/product/0-96-inch-i2c-iic-oled-lcd-module-4pin-with-vcc-gnd-white/)
+Off board,1,Protected 1S LiPo pouch pack,"3.7 V nominal, 4.2 V full; target 1500 mAh. Entire delivered pack must fit 51 x 34 x 5 mm. Candidate is not procurement approved.",[Probots protected pack candidate](https://probots.co.in/lithium-ion-rechargeable-battery-3-7v-1500mah-kp-053450.html)
+Off board,0 or 1,External regulated solar source,"FIT0601 5 V USB output, nominal 6 W panel. Requires USB-A to USB-C cable and outdoor panel mount.",[DFRobot FIT0601](https://www.dfrobot.com/product-1774.html); [Evelta FIT0601](https://evelta.com/monocrystalline-solar-panel-5v-1a/)
+U2,1,TPS61099DRVR,"Adjustable boost, WSON-6 with exposed pad, 2 x 2 mm. Requires reflow.",[TI TPS61099 product and ordering](https://www.ti.com/product/TPS61099)
+U3,1,SN74LVC1T45DBVR,"SOT-23-6, 3.3 V to switched 5 V pixel data.",[TI SN74LVC1T45 product and ordering](https://www.ti.com/product/SN74LVC1T45)
+U4,1,SN74LVC1G17DBVR,"SOT-23-5, 5 V tolerant ECHO buffer to MCU.",[TI SN74LVC1G17 product and ordering](https://www.ti.com/product/SN74LVC1G17)
+D1,1,WS2812B-2020-V6,"2 x 2 mm, bottom side. Exact V6 pad map; do not substitute generic WS2812.",[Worldsemi exact pixel listing](https://lcscindia.com/part/WS2812B-2020-V6)
+L1,1,VLS3012CX-2R2M-1,"TDK 2.2 uH, 3 x 3 x 1.2 mm.",[TDK exact inductor](https://product.tdk.com/en/search/inductor/inductor/smd/info?part_no=VLS3012CX-2R2M-1)
+C1,1,GRM21BR71A106KE51L,"10 uF, 10 V X7R, 0805.",[Murata input capacitor](https://www.digikey.com/en/products/detail/murata-electronics/GRM21BR71A106KE51L/965919)
+C2 C3,2,GRM31CZ71C226ME15L,"22 uF, 16 V X7R, 1206. Preserve DC bias margin.",[Murata output capacitor](https://www.digikey.com/en/products/detail/murata-electronics/GRM31CZ71C226ME15L/13904808)
+C4 C5 C6 C7,4,"100 nF, 16 V X7R, 0603",Example sourcing MPN GRM188R71C104KA01D. C7 is bottom side.,[Murata 100 nF candidate](https://www.mouser.com/ProductDetail/Murata-Electronics/GRM188R71C104KA01D)
+R1,1,"1 Mohm, 1%, 0603","Candidate RC0603FR-071ML, 0.1 W.",[Yageo 1 Mohm candidate](https://www.mouser.com/ProductDetail/YAGEO/RC0603FR-071ML)
+R2,1,"249 kohm, 1%, 0603","Candidate RC0603FR-07249KL, 0.1 W.",[Yageo 249 kohm candidate](https://www.digikey.com/en/products/detail/yageo/RC0603FR-07249KL/727086)
+R3 R4 R6 R7,4,"100 kohm, 1%, 0603","Candidate RC0603FR-07100KL, 0.1 W.",[Yageo 100 kohm candidate](https://www.digikey.com/en/products/detail/yageo/RC0603FR-07100KL/726889)
+R5,1,"330 ohm, 1%, 0603","Candidate RC0603FR-07330RL, 0.1 W.",[Yageo 330 ohm candidate](https://www.digikey.com/en/products/detail/yageo/RC0603FR-07330RL/727162)
+R8 R9,2 or 0,"4.7 kohm, 1%, 0603",OLED only; candidate RC0603FR-074K7L.,[Yageo 4.7 kohm candidate](https://www.mouser.com/ProductDetail/YAGEO/RC0603FR-074K7L)
+J1,1,JST B4B-PH-K-S LF SN,"Through hole, 1x4 at 2 mm. Verify housing matches chosen cable.",[JST B4B-PH-K-S](https://www.digikey.com/en/products/detail/jst-sales-america-inc/B4B-PH-K-S/926613)
+J2,1 or 0,"1x4 male header, 2.54 mm",OLED only. Cable to display; display is not soldered directly to carrier. Standard pin-header stock; select fit.,See OLED product and assembly drawing
+U1 interface,2,"1x7 female socket, 2.54 mm",Required body height 8.5 mm. Samtec SSW-107-01-T-S is an 8.51 mm dimensional candidate; complete stack still needs trial fit.,[Samtec socket dimensional candidate](https://www.digikey.com/en/products/detail/samtec-inc/SSW-107-01-T-S/1112298)
+XIAO edge pads,2,"1x7 male header, 2.54 mm",2.5 mm plastic shoulder; XIAO-side short legs at least 3 mm. Leave 0.6 mm air gap above plastic using removable shim.,Exact supplier MPN remains to be confirmed against these dimensions
+Sensor cable,1,JST-PH4 mating housing and contacts to four 2.54 mm female sensor sockets. Pin-to-pin continuity is required.,Match J1 and actual HC-SR04 male header,Dimension controlled procurement item
+Battery lead,1,Matching PH2 battery mate to two insulated wires soldered to XIAO BAT pads before Wio is mated.,Pack connector polarity is not standardized,Dimension controlled procurement item
+OLED cable,0 or 1,"Flexible four-wire lead, 2.54 mm mating female ends.","GND, 3V3, SCL, SDA; match product pin labels",Dimension controlled procurement item
+RF parts,1 set,Use kit LoRa antenna for first bench test; selected 865 MHz external antenna and U.FL to SMA bulkhead lead for case mounting.,"6.6 mm case bore; connector body, coax bend and antenna MPN not frozen",Dimension controlled procurement item
+Battery retention,1 set,1 mm insulating foam and nonconductive strap.,Never compress or puncture pouch,Dimension controlled procurement item
+USB cable,1,Data-capable USB-C for upload; regulated solar cable instead for charging.,Slim plug must fit 14 x 7.6 mm opening,Dimension controlled procurement item
+Fasteners,1 set,"4x M2x4 sensor/mask; 2x M2x6 front panel; OLED adds 4x M2x5. Carrier: 4x M2.5-class screws, trial M2.5x6.","Printed pilot bores; verify engagement, no bottoming or battery contact",Dimension controlled procurement item
+Installation,1 set,Four suitable ceiling anchors and secondary retention for the actual ceiling material.,"Mounting holes 4.5 mm, centers 82 x 42 mm",Dimension controlled procurement item

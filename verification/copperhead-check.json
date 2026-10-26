@@ -1,0 +1,194 @@
+{
+  "ok": true,
+  "erc": {
+    "ok": true,
+    "violations": 0
+  },
+  "drc": {
+    "ok": true,
+    "violations": 0,
+    "unrouted": 0,
+    "intrinsic": 0
+  },
+  "drift": {
+    "ok": true,
+    "mismatches": []
+  },
+  "openspec": null,
+  "constraints": {
+    "ok": true,
+    "violations": []
+  },
+  "legibility": {
+    "findings": [],
+    "counts": {
+      "error": 0,
+      "advisory": 0
+    },
+    "skipped": [],
+    "disabled": [],
+    "suppressed": [],
+    "score": {
+      "composite": 75.33,
+      "metrics": [
+        {
+          "name": "pin-attachment",
+          "raw": 0.65,
+          "score": 0.7222222222222222,
+          "weight": 10,
+          "contribution": 6.280193236714975
+        },
+        {
+          "name": "island-parts",
+          "raw": 0,
+          "score": 1,
+          "weight": 5,
+          "contribution": 4.3478260869565215
+        },
+        {
+          "name": "wire-crossings",
+          "raw": 0,
+          "score": 1,
+          "weight": 10,
+          "contribution": 8.695652173913043
+        },
+        {
+          "name": "wire-bends",
+          "raw": 19,
+          "score": 0.2962962962962963,
+          "weight": 5,
+          "contribution": 1.288244766505636
+        },
+        {
+          "name": "wire-length",
+          "raw": 560.0699999999999,
+          "score": 0.7860430704651337,
+          "weight": 5,
+          "contribution": 3.4175785672397114
+        },
+        {
+          "name": "label-to-wire-ratio",
+          "raw": 0.2079207920792079,
+          "score": 1,
+          "weight": 5,
+          "contribution": 4.3478260869565215
+        },
+        {
+          "name": "group-cohesion",
+          "raw": 135.44045785614196,
+          "score": 0.7367028807592646,
+          "weight": 10,
+          "contribution": 6.406112006602301
+        },
+        {
+          "name": "flow-direction",
+          "raw": 7,
+          "score": 0,
+          "weight": 10,
+          "contribution": 0
+        },
+        {
+          "name": "utilization",
+          "raw": 0.6723246315789473,
+          "score": 1,
+          "weight": 10,
+          "contribution": 8.695652173913043
+        },
+        {
+          "name": "axis-alignment",
+          "raw": 0.75,
+          "score": 0.75,
+          "weight": 10,
+          "contribution": 6.521739130434782
+        },
+        {
+          "name": "spacing-uniformity",
+          "raw": 0.9206349206349204,
+          "score": 0.9206349206349204,
+          "weight": 10,
+          "contribution": 8.005521048999308
+        },
+        {
+          "name": "straight-wire-ratio",
+          "raw": 0.8118811881188119,
+          "score": 0.8118811881188119,
+          "weight": 5,
+          "contribution": 3.5299182092122257
+        },
+        {
+          "name": "label-alignment",
+          "raw": 0.9523809523809523,
+          "score": 0.9523809523809523,
+          "weight": 5,
+          "contribution": 4.140786749482401
+        },
+        {
+          "name": "whitespace-balance",
+          "raw": 0.014337281265779715,
+          "score": 0.9856627187342203,
+          "weight": 10,
+          "contribution": 8.570980162906263
+        },
+        {
+          "name": "pair-symmetry",
+          "raw": 0.25,
+          "score": 0.25,
+          "weight": 5,
+          "contribution": 1.0869565217391304
+        }
+      ],
+      "style": {
+        "composite": 83.13,
+        "metrics": [
+          {
+            "name": "pin-attachment",
+            "raw": 0.65,
+            "score": 0.7222222222222222,
+            "weight": 30,
+            "contribution": 21.666666666666664
+          },
+          {
+            "name": "island-parts",
+            "raw": 0,
+            "score": 1,
+            "weight": 20,
+            "contribution": 20
+          },
+          {
+            "name": "power-symbol-economy",
+            "raw": 1.4375,
+            "score": 0.5565217391304348,
+            "weight": 15,
+            "contribution": 8.347826086956522
+          },
+          {
+            "name": "labels-per-part",
+            "raw": 0.65625,
+            "score": 1,
+            "weight": 15,
+            "contribution": 15
+          },
+          {
+            "name": "crossings-per-wire",
+            "raw": 0,
+            "score": 1,
+            "weight": 10,
+            "contribution": 10
+          },
+          {
+            "name": "straight-wire-ratio",
+            "raw": 0.8118811881188119,
+            "score": 0.8118811881188119,
+            "weight": 10,
+            "contribution": 8.118811881188119
+          }
+        ]
+      },
+      "cap": null,
+      "legibility": {
+        "error": 0,
+        "advisory": 0
+      }
+    }
+  }
+}

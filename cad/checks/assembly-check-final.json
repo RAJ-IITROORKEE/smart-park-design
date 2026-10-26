@@ -1,0 +1,42 @@
+{
+  "status": "pass",
+  "units": "mm in STEP; glTF Y-up",
+  "models": {
+    "electronics_stack": {
+      "solids": 271,
+      "bbox_mm": "bbox: -31.0 <= x <= 43.0, -28.0 <= y <= 27.5, 0.5 <= z <= 44.9",
+      "step_sha256": "87a9587b8a0475769f345d602fe353085c241383a6c37d340bbb196e38cca38b",
+      "glb_sha256": "f1ba5977cae9f66b12a08b44c2c249fa53f4fe4aa6a1ecf2aa081a74d7aa60d6"
+    },
+    "product_oled": {
+      "solids": 282,
+      "bbox_mm": "bbox: -47.0 <= x <= 47.0, -34.8 <= y <= 33.000000000001, 0.0 <= z <= 50.4",
+      "step_sha256": "aa6a74e61fc74d547c2f1f925e6495e2933e0fd2a15b9ca562d11cdc45e4e258",
+      "glb_sha256": "df0cd75db538060d0a602da1607d8650686b7d9026aaead3efbe3c6a90df2d53"
+    },
+    "product_status": {
+      "solids": 277,
+      "bbox_mm": "bbox: -47.0 <= x <= 47.0, -34.8 <= y <= 33.000000000001, 0.0 <= z <= 50.4",
+      "step_sha256": "cc0b1c65ce537a79aa427f8c39ebab770a0326800fa363e1a86a660251a407ad",
+      "glb_sha256": "dc42b2cc2972456dd843f43fef1d87c5f91012a234c91d18b35e75b2acce185d"
+    },
+    "exploded_oled": {
+      "solids": 282,
+      "bbox_mm": "bbox: -47.0 <= x <= 47.0, -62.8 <= y <= 33.000000000001, -18.0 <= z <= 95.4",
+      "step_sha256": "4bb64f938c0f8fce85e46e7935ecce74d77820c83d0bc98448e71f726f0a7f8c",
+      "glb_sha256": "3383ecb38d40aa0736855722fc4c036c30efbd8e891db8128c4ef3dc58630c0d"
+    },
+    "exploded_status": {
+      "solids": 277,
+      "bbox_mm": "bbox: -47.0 <= x <= 47.0, -62.8 <= y <= 33.000000000001, -18.0 <= z <= 95.4",
+      "step_sha256": "0b77d1e3447dc413efd9c2659335d95ad5050781ee7802eee40705c8d088a30b",
+      "glb_sha256": "5fc2b3a5c022d027f37b389fffc0e15c0d441a947bab9447a6037c925114656f"
+    }
+  },
+  "inputs": {
+    "src/design.py": "56f1ec151047f84de9dce58cbda7f6c2fbba65a296f766225b574ad1ad1c6a0b",
+    "../outputs/board.step": "fdb89e5e99ed32ec80d92066ff5617937cf2f207b085a7ebe7ca51417414bbcd",
+    "../docs/mechanical-interface.json": "5c9f6e2df6312a1401a70b36251264926e8d3672df30b55cfdefe6e12230ff2b",
+    "imported/xiao-s3-wio-sx1262-stack.step": "cbc3643cbf2ddd35c50739202b8440678e2bf605ca3c2fb8f96585a3e4d69edb"
+  }
+}

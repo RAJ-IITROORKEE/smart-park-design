@@ -1,0 +1,120 @@
+SmartPark Rev D fit check (millimetres; overlap threshold 0.050 mm^3)
+========================================================================================
+PASS       source base: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       source lid: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       source acoustic mask: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       source sensor retainer: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       source OLED panel: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       source blank panel: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       source OLED retainer: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       source base print orientation: Z=[0.000,50.400] mm
+PASS       source lid print orientation: Z=[0.000,24.000] mm
+PASS       source acoustic mask print orientation: Z=[0.000,2.200] mm
+PASS       source sensor retainer print orientation: Z=[0.000,1.600] mm
+PASS       source OLED panel print orientation: Z=[0.000,6.600] mm
+PASS       source blank panel print orientation: Z=[0.000,4.100] mm
+PASS       source OLED retainer print orientation: Z=[0.000,1.600] mm
+PASS       base/lid installed interference: intersection=0.0000 mm^3; threshold=0.050 mm^3
+PASS       mask-to-shell nominal seat: frame/opening clearance=0.20 mm per X side, 0.20 mm per Y side; overlap=0.0000 mm^3
+UNVERIFIED HC-SR04 can-to-mask interface: model assumes can OD 16.0 mm, pitch 26.0 mm, and mask hole 17.0 mm (radial clearance 0.50 mm); module source drawing does not dimension actual can OD/pitch; verify the purchased sensor physically.
+INFO       mask clearance/HC-SR04 transducer 1: surrogate intersection=0.0000 mm^3; this only checks the modeled 16 mm can at assumed 26 mm pitch
+INFO       mask clearance/HC-SR04 transducer 2: surrogate intersection=0.0000 mm^3; this only checks the modeled 16 mm can at assumed 26 mm pitch
+PASS       sensor PCB/retainer and shell contact: retainer intersection=0.0000 mm^3; shell intersection=0.0000 mm^3
+PASS       battery envelope vs tray: overlap=0.0000 mm^3; nominal side clearances X=0.50 mm, Y=0.50 mm. Verify actual pack and foam; side fit is tolerance-sensitive and is not a swelling allowance.
+INFO       battery vertical envelope: pouch reference Z=[3.40,8.40] mm; floor-to-pouch-bottom=1.00 mm; pouch-top to carrier reference plane=13.10 mm. Flexible strap is not a rigid squeeze cap; actual pack, lead and cell expansion behavior still require inspection.
+PASS       carrier-to-shell clearance: source carrier=board 1; base overlap=0.0000 mm^3; lid overlap=0.0000 mm^3
+PASS       lid clip envelope vs actual carrier STEP: clip starts at Z=26.40 mm; carrier top Z=29.13 mm; vertical separation=-2.73 mm; overlap=0.0000 mm^3
+PASS       carrier-to-battery vertical clearance: gap=11.230 mm (carrier lower face minus pouch reference top)
+PASS       carrier vs HC-SR04 PCB reference: intersection=0.0000 mm^3
+PASS       carrier vs HC-SR04 right-angle harness envelope: intersection=0.0000 mm^3
+PASS       carrier vs GoldenMorning OLED PCB reference: intersection=0.0000 mm^3
+PASS       carrier vs OLED header/cable keepout: intersection=0.0000 mm^3
+PASS       XIAO/Wio STEP global-leaf placement: flattened leaf bounds X[-8.890,8.890], Y[3.780,26.504], Z[31.875,43.635] mm; max deviation from configured placement=0.0000 mm
+PASS       XIAO/Wio vs header 2 (8.5mm female header body reference): intersection=0.0000 mm^3; housing must clear component-face parts
+PASS       XIAO/Wio vs header 3 (2.5mm male header shoulder reference): intersection=0.0000 mm^3; housing must clear component-face parts
+PASS       XIAO/Wio vs header 11 (8.5mm female header body reference): intersection=0.0000 mm^3; housing must clear component-face parts
+PASS       XIAO/Wio vs header 12 (2.5mm male header shoulder reference): intersection=0.0000 mm^3; housing must clear component-face parts
+PASS       XIAO/Wio stack shell/battery clearance: case-transformed bbox X[-8.89,8.89], Y[3.78,26.50], Z[31.87,43.64] mm; base overlap=0.0000, lid overlap=0.0000, battery overlap=0.0000, OLED panel overlap=0.0000, OLED retainer overlap=0.0000 mm^3
+PASS       lid clip envelope vs XIAO/Wio component stack: stack bbox X[-8.89,8.89], Z[31.87,43.64] mm; clip-to-stack overlap=0.0000 mm^3
+PASS       XIAO/Wio stack vs OLED harness keepout: intersection=0.0000 mm^3
+PASS       complete mechanical/electronics clearance matrix: checked 238 shape pairs (7 mechanical × 34 electronics); failures=0, errors=0; overlap threshold=0.050 mm^3
+PASS       complete mechanical/electronics clearance matrix: checked 180 shape pairs (6 mechanical × 30 electronics); failures=0, errors=0; overlap threshold=0.050 mm^3
+PASS       base/OLED panel installed fit: intersection=0.0000 mm^3; threshold=0.050 mm^3
+PASS       base/blank panel installed fit: intersection=0.0000 mm^3; threshold=0.050 mm^3
+PASS       OLED window vs drawing active area: window 24.4 × 13.5 mm; active-area nominal border X=1.328 mm, Z=1.318 mm; viewing-area border X=0.328 mm, Z=0.318 mm. Verify the supplier module and panel opening registration before fabrication.
+INFO       OLED module modeled envelope: source envelope dimensions X/Y/Z=(27.8, 1.2, 27.5); supplier PCB is 27.8 × 27.5 × 1.2 mm, so treat the source's Y thickness/connector envelope as a keepout, not vendor PCB geometry.
+PASS       panel clearance/OLED glass: intersection=0.0000 mm^3; window/cavity should leave this envelope unobstructed
+PASS       panel clearance/OLED active area: intersection=0.0000 mm^3; window/cavity should leave this envelope unobstructed
+PASS       panel clearance/OLED module: intersection=0.0000 mm^3; window/cavity should leave this envelope unobstructed
+PASS       OLED harness keepout/base: intersection=0.0000 mm^3
+PASS       OLED harness keepout/lid: intersection=0.0000 mm^3
+PASS       OLED harness keepout/OLED retainer: intersection=0.0000 mm^3
+PASS       OLED harness keepout/OLED panel: intersection=0.0000 mm^3
+PASS       mounting-ear M4 bore clearance: maximum base-solid intersection across four Ø4.5 mm bores=0.0000 mm^3
+PASS       SMA bulkhead Ø6.6 mm path: probe axis along X at y=0,z=40; base-solid intersection=0.0000 mm^3
+INFO       latch-window registration / beam estimate: Current source gives window 3.7 × 8.2 × 3.0 mm at Z=26.9..29.9 and tooth 1.4 × 7.0 × 2.4 mm at Z=27.2..29.6; Y edge clearance 0.60 mm, lower/upper Z clearances 0.30/0.30 mm. Clip thickness CLIP_T=1.6 mm; full free span=22.0 mm; hook-root length H+.4-(30.4+D+HOOK_SHIFT)=18.8 mm. Cantilever strain estimate ε≈1.5·t·δ/L² (not FEA): δ=0.4 mm → 0.272%, δ=0.6 mm → 0.407%, δ=0.8 mm → 0.543%, δ=1.0 mm → 0.679%, δ=1.4 mm → 0.951%. Actual required deflection, print material/orientation, fatigue and latch force are unverified.
+PASS       STEP/base: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/base freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       STEP/base print origin: saved print pose has Z bound [0.000, 50.400] mm
+PASS       STEP/lid: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/lid freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       STEP/lid print origin: saved print pose has Z bound [-0.000, 24.000] mm
+PASS       STEP/sensor_mask: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/sensor_mask freshness: cadgen model and this output report stale=false
+PASS       STEP/sensor_mask print origin: saved print pose has Z bound [0.000, 2.200] mm
+PASS       STEP/sensor_retainer: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/sensor_retainer freshness: cadgen model and this output report stale=false
+PASS       STEP/sensor_retainer print origin: saved print pose has Z bound [0.000, 1.600] mm
+PASS       STEP/front_oled: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/front_oled freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       STEP/front_oled print origin: saved print pose has Z bound [0.000, 6.600] mm
+PASS       STEP/front_blank: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/front_blank freshness: cadgen model and this output report stale=false
+PASS       STEP/front_blank print origin: saved print pose has Z bound [0.000, 4.100] mm
+PASS       STEP/oled_retainer: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/oled_retainer freshness: cadgen model and this output report stale=false
+PASS       STEP/oled_retainer print origin: saved print pose has Z bound [0.000, 1.600] mm
+PASS       STEP/light_pipe: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/light_pipe freshness: cadgen model and this output report stale=false
+PASS       STEP/light_pipe print origin: saved print pose has Z bound [0.000, 20.000] mm
+PASS       STEP/fit_coupon: solids=1, valid=True, free_shell_edges=0, positive_volumes=True
+PASS       STEP/fit_coupon freshness: cadgen model and this output report stale=false
+PASS       STEP/fit_coupon print origin: saved print pose has Z bound [0.000, 22.000] mm
+PASS       STL/base: triangles=16420, watertight_edges=True, bad_edges=0, signed_volume=38786.23 mm^3, Z=[0.0000,50.4000] mm
+PASS       STL/base freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       3MF/base: unit=millimeter, meshes=1, triangles=16420, watertight_edges=True, bad_edges=0, signed_volume=38786.22 mm^3, Z=[0.000000,50.400000] mm
+PASS       3MF/base freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       STL/lid: triangles=1836, watertight_edges=True, bad_edges=0, signed_volume=13103.09 mm^3, Z=[-0.0000,24.0000] mm
+PASS       STL/lid freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       3MF/lid: unit=millimeter, meshes=1, triangles=1836, watertight_edges=True, bad_edges=0, signed_volume=13103.09 mm^3, Z=[0.000000,24.000000] mm
+PASS       3MF/lid freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       STL/sensor_mask: triangles=3188, watertight_edges=True, bad_edges=0, signed_volume=1671.52 mm^3, Z=[0.0000,2.2000] mm
+PASS       STL/sensor_mask freshness: cadgen model and this output report stale=false
+PASS       3MF/sensor_mask: unit=millimeter, meshes=1, triangles=3188, watertight_edges=True, bad_edges=0, signed_volume=1671.52 mm^3, Z=[0.000000,2.200000] mm
+PASS       3MF/sensor_mask freshness: cadgen model and this output report stale=false
+PASS       STL/sensor_retainer: triangles=1364, watertight_edges=True, bad_edges=0, signed_volume=694.02 mm^3, Z=[0.0000,1.6000] mm
+PASS       STL/sensor_retainer freshness: cadgen model and this output report stale=false
+PASS       3MF/sensor_retainer: unit=millimeter, meshes=1, triangles=1364, watertight_edges=True, bad_edges=0, signed_volume=694.02 mm^3, Z=[0.000000,1.600000] mm
+PASS       3MF/sensor_retainer freshness: cadgen model and this output report stale=false
+PASS       STL/front_oled: triangles=3240, watertight_edges=True, bad_edges=0, signed_volume=5467.17 mm^3, Z=[0.0000,6.6000] mm
+PASS       STL/front_oled freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       3MF/front_oled: unit=millimeter, meshes=1, triangles=3240, watertight_edges=True, bad_edges=0, signed_volume=5467.17 mm^3, Z=[0.000000,6.600000] mm
+PASS       3MF/front_oled freshness: native rebuild manifest SHA-256 values match for source, STEP, STL, and 3MF (OCCT native solid tessellation,0.02mm/0.1rad)
+PASS       STL/front_blank: triangles=804, watertight_edges=True, bad_edges=0, signed_volume=7507.93 mm^3, Z=[0.0000,4.1000] mm
+PASS       STL/front_blank freshness: cadgen model and this output report stale=false
+PASS       3MF/front_blank: unit=millimeter, meshes=1, triangles=804, watertight_edges=True, bad_edges=0, signed_volume=7507.93 mm^3, Z=[0.000001,4.099999] mm
+PASS       3MF/front_blank freshness: cadgen model and this output report stale=false
+PASS       STL/oled_retainer: triangles=1660, watertight_edges=True, bad_edges=0, signed_volume=1069.46 mm^3, Z=[-0.0000,1.6000] mm
+PASS       STL/oled_retainer freshness: cadgen model and this output report stale=false
+PASS       3MF/oled_retainer: unit=millimeter, meshes=1, triangles=1660, watertight_edges=True, bad_edges=0, signed_volume=1069.46 mm^3, Z=[-0.000001,1.600000] mm
+PASS       3MF/oled_retainer freshness: cadgen model and this output report stale=false
+PASS       STL/light_pipe: triangles=1044, watertight_edges=True, bad_edges=0, signed_volume=151.54 mm^3, Z=[0.0000,20.0000] mm
+PASS       STL/light_pipe freshness: cadgen model and this output report stale=false
+PASS       3MF/light_pipe: unit=millimeter, meshes=1, triangles=1044, watertight_edges=True, bad_edges=0, signed_volume=151.54 mm^3, Z=[0.000000,20.000000] mm
+PASS       3MF/light_pipe freshness: cadgen model and this output report stale=false
+PASS       STL/fit_coupon: triangles=888, watertight_edges=True, bad_edges=0, signed_volume=3680.33 mm^3, Z=[0.0000,22.0000] mm
+PASS       STL/fit_coupon freshness: cadgen model and this output report stale=false
+PASS       3MF/fit_coupon: unit=millimeter, meshes=1, triangles=888, watertight_edges=True, bad_edges=0, signed_volume=3680.33 mm^3, Z=[0.000000,22.000000] mm
+PASS       3MF/fit_coupon freshness: cadgen model and this output report stale=false
+========================================================================================
+checks=116 failures=0 unverified=1

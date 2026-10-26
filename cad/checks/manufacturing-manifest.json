@@ -1,0 +1,32 @@
+{
+  "base": {
+    "method": "OCCT native solid tessellation,0.02mm/0.1rad",
+    "sha256": {
+      "src/design.py": "56f1ec151047f84de9dce58cbda7f6c2fbba65a296f766225b574ad1ad1c6a0b",
+      "src/base.py": "930c23014bce78f45e28bf845c20f921cd83e269316d5832550b4b1d77aa9f04",
+      "STEP/base.step": "a26dc030a239f9f308b59fe3fff6d325bdb63daad20916087816b90f45cc928f",
+      "STL/base.stl": "f7d95070d557e689340dec8d88370a9675e0857693bfecbe48d1c524caf21d68",
+      "3MF/base.3mf": "689018b54571ed1c09c0a2f2cb7bcde8cb2c21685b3d2a6e2dfadcf6a4357817"
+    }
+  },
+  "lid": {
+    "method": "OCCT native solid tessellation,0.02mm/0.1rad",
+    "sha256": {
+      "src/design.py": "56f1ec151047f84de9dce58cbda7f6c2fbba65a296f766225b574ad1ad1c6a0b",
+      "src/lid.py": "2a9b5fe7787bef620e4b9f87bc3abee0e9565722477623b63b72fc62901098ab",
+      "STEP/lid.step": "4a077c09ba2a0de5f1c26e29e116d4884d9b49e2927a5e2db2f9ed934d369ef0",
+      "STL/lid.stl": "8e7e83786d044029af9aae300e9217b492d6b21b7474e3d0e071474b4be4a826",
+      "3MF/lid.3mf": "77ff8edc78b68d962aef5a38584fc82e217566b4f0eb3744143d8009a8a89bfe"
+    }
+  },
+  "front_oled": {
+    "method": "OCCT native solid tessellation,0.02mm/0.1rad",
+    "sha256": {
+      "src/design.py": "56f1ec151047f84de9dce58cbda7f6c2fbba65a296f766225b574ad1ad1c6a0b",
+      "src/front_oled.py": "f47b27d9925ee58f581e82ec66ac98b0f33af550353221e439aa4f3d44745698",
+      "STEP/front_oled.step": "b17d0f6e953ee6e55bd5f35289e6975612e3b4e5f5ba9e78c83dc2173aef1ea5",
+      "STL/front_oled.stl": "86e0b86877d3e138b109d7a60f0b4a91d121e21ff8ba7fa082d748a399fb73b5",
+      "3MF/front_oled.3mf": "d0e0696c5c8ca8ce9b4b146f35ef9009be394ef17f01a411833f2ffba6657846"
+    }
+  }
+}

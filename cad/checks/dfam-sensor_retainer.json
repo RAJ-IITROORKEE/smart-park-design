@@ -1,0 +1,111 @@
+{
+  "file": "C:\\Users\\rajra\\.codex\\visualizations\\2026\\10\\22\\01a1636c-dc70-7193-9430-ce7daa96cf65\\smart-marking-pcb\\revision-d\\cad\\STL\\sensor_retainer.stl",
+  "mesh": {
+    "bbox_mm": [
+      53.0,
+      23.0,
+      1.6
+    ],
+    "volume_mm3": 694.0,
+    "surface_area_mm2": 1283.3,
+    "triangle_count": 1364,
+    "watertight": true,
+    "euler_number": -2,
+    "body_count": 1
+  },
+  "scale": {
+    "bbox_diagonal_mm": 57.7976,
+    "units_suspect": false,
+    "note": "bbox consistent with millimetre units"
+  },
+  "overhangs": {
+    "angle_limit_used_deg": 45.0,
+    "down_facing_area_below_limit_mm2": 0.0,
+    "down_facing_area_below_limit_pct": 0.0,
+    "face_count_below_limit": 0,
+    "down_facing_angle_histogram_mm2": {},
+    "largest_faces_below_limit": []
+  },
+  "wall_thickness": {
+    "samples_valid": 1364,
+    "min_mm": 0.452,
+    "p05_mm": 1.6,
+    "p25_mm": 1.6,
+    "median_mm": 1.6,
+    "max_mm": 19.5,
+    "thinnest_samples": [
+      {
+        "location_xyz": [
+          52.56,
+          11.78,
+          0.53
+        ],
+        "thickness_mm": 0.452
+      },
+      {
+        "location_xyz": [
+          52.56,
+          11.78,
+          0.53
+        ],
+        "thickness_mm": 0.452
+      },
+      {
+        "location_xyz": [
+          0.46,
+          11.84,
+          1.07
+        ],
+        "thickness_mm": 0.479
+      },
+      {
+        "location_xyz": [
+          52.49,
+          11.01,
+          1.07
+        ],
+        "thickness_mm": 0.569
+      },
+      {
+        "location_xyz": [
+          52.49,
+          11.99,
+          0.53
+        ],
+        "thickness_mm": 0.569
+      },
+      {
+        "location_xyz": [
+          52.38,
+          10.85,
+          1.07
+        ],
+        "thickness_mm": 0.76
+      },
+      {
+        "location_xyz": [
+          52.27,
+          12.29,
+          1.07
+        ],
+        "thickness_mm": 1.059
+      },
+      {
+        "location_xyz": [
+          52.14,
+          10.61,
+          1.07
+        ],
+        "thickness_mm": 1.443
+      }
+    ]
+  },
+  "support_volume": {
+    "angle_limit_used_deg": 45.0,
+    "estimated_support_volume_mm3": 0.0,
+    "part_volume_mm3": 694.0,
+    "support_to_part_ratio_pct": 0.0,
+    "method": "prism from face centroid to build plate; coarse upper-bound estimate"
+  },
+  "partial": false
+}
