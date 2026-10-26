@@ -42,11 +42,11 @@ The root README and illustrated Word and Markdown guide describe the retained Re
 
 [[scripts/build_preview_models.py#main]] exports enclosure only views from final assemblies, preserving installed geometry and checking valid solids. The preview index separates carrier, connected electronics, enclosure and complete product models. Superseded designs are deleted only after retained artifact and archive verification.
 
-The user supplied screen recording is stored unchanged in `media/videos/smartpark-revd-preview.mp4` and linked from the root README. `verification/video-copy.json` records the source filename, saved path, byte count and matching SHA256. Its content has not been reviewed for public sharing.
+The user supplied screen recording is stored unchanged in `media/videos/smartpark-revd-preview.mp4` and linked from the media index. `verification/video-copy.json` records the source filename, saved path, byte count and matching SHA256. Its content has not been reviewed for public sharing.
 
 The public source repository is [RAJ-IITROORKEE/smart-park-design](https://github.com/RAJ-IITROORKEE/smart-park-design). Its repository root is this final design folder; installed runtimes in the parent tools folder and local caches are excluded.
 
-The public README leads with a short showcase made from actual CAD previews, then presents product variants, carrier and electronics views, copper plots, component links and fabrication downloads. The revd-pilot prerelease distributes the PCB, case and complete project archives.
+The public README intro contains a direct product video link without an embedded animated preview. Static product, carrier and copper images remain in the galleries below. The revd-pilot prerelease distributes the PCB, case and complete project archives.
 
 ## Battery runtime estimate
 

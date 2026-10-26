@@ -10,11 +10,7 @@ XIAO ESP32S3 · Wio-SX1262 LoRa · HC-SR04 · LiPo · optional OLED
 
 [Download PCB](https://github.com/RAJ-IITROORKEE/smart-park-design/releases/download/revd-pilot/SmartPark-RevD-PCB-Fabrication.zip) · [Download case](https://github.com/RAJ-IITROORKEE/smart-park-design/releases/download/revd-pilot/Case-Print-Files.zip) · [Build guide](docs/SmartPark-RevD-Build-Guide.md) · [3D models](previews/README.md)
 
-<a href="https://github.com/RAJ-IITROORKEE/smart-park-design/raw/refs/heads/main/media/showcase/brag.mp4">
-  <img src="media/showcase/preview.gif" alt="SmartPark animated showcase showing the final enclosure and connected PCB stack" width="960">
-</a>
-
-**[Watch the showcase video](https://github.com/RAJ-IITROORKEE/smart-park-design/raw/refs/heads/main/media/showcase/brag.mp4)** · [Full-resolution poster](media/showcase/brag.jpg) · [Original CAD recording](https://github.com/RAJ-IITROORKEE/smart-park-design/raw/refs/heads/main/media/videos/smartpark-revd-preview.mp4) · [Credits and source](media/showcase/README.md)
+**[Watch the product video](https://github.com/RAJ-IITROORKEE/smart-park-design/raw/refs/heads/main/media/showcase/brag.mp4)**
 
 </div>
 
