@@ -46,6 +46,8 @@ The user supplied screen recording is stored unchanged in `media/videos/smartpar
 
 The public source repository is [RAJ-IITROORKEE/smart-park-design](https://github.com/RAJ-IITROORKEE/smart-park-design). Its repository root is this final design folder; installed runtimes in the parent tools folder and local caches are excluded.
 
+The public README leads with a short showcase made from actual CAD previews, then presents product variants, carrier and electronics views, copper plots, component links and fabrication downloads. The revd-pilot prerelease distributes the PCB, case and complete project archives.
+
 ## Battery runtime estimate
 
 Battery lifetime is a scenario calculation using an assumed 1500 mAh pack, 80 percent usable capacity and explicitly stated battery side duty cycle currents.

@@ -5,3 +5,6 @@ lat.md/.cache/
 *.kicad_prl
 *.lck
 ~$*
+node_modules/
+.hyperframes/
+.thumbnails/

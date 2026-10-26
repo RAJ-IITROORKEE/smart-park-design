@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "framework": "HyperFrames",
+  "video": {
+    "duration_seconds": 20.5,
+    "size": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "codec": "H.264",
+    "audio": "stereo AAC",
+    "poster_baked_into_first_frame": true
+  },
+  "preview_gif": {
+    "size": [
+      800,
+      450
+    ],
+    "frames": 144,
+    "bytes": 2149882
+  },
+  "hyperframes_check": {
+    "errors": 0,
+    "AA_contrast_checks_passed": 51,
+    "nonblocking_lint_warnings": 6,
+    "intentional_zoom_overflow_infos": 2
+  },
+  "review": "All five scenes and the final opening reviewed; immutable hardware geometry unchanged",
+  "optional_audio_reactivity": "not used",
+  "sha256": {
+    "media/showcase/brag.mp4": "9534a573c47ca0d4cfba6cfaf612c30669ccf8d26b88c5457ab86bcd73029ddb",
+    "media/showcase/brag.jpg": "5ec2cb77f9f72b3b23ad441eb47bd365f8d259ebea4db845954ac6da1c4e5fdc",
+    "media/showcase/preview.gif": "7fe557947044732afcd03128b5bb9aaf831e08b98213385523538beb1957b42d",
+    "media/showcase/composition/index.html": "b6af8f7c2a8b12457b8c60d3e536d329956f2a2678e72a073c84750a70eb1027"
+  }
+}

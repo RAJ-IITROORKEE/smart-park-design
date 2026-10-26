@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>SmartPark Revision D — Indoor Pilot</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --paper: #eef3f5;
+        --ink: #183849;
+        --teal: #168b8d;
+        --muted: #395461;
+        --rule: #a9bec3;
+        --white: #f7fafb;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 100%; height: 100%; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Montserrat, sans-serif;
+        font-weight: 400;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--paper);
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        padding: 62px 94px 54px;
+        background: var(--paper);
+        z-index: 1;
+      }
+      .scene::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(24,56,73,.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(24,56,73,.035) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: linear-gradient(110deg, rgba(0,0,0,.3), rgba(0,0,0,.78));
+      }
+      .scene::after {
+        content: "";
+        position: absolute;
+        right: -180px;
+        top: 90px;
+        width: 900px;
+        height: 900px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(22,139,141,.10) 0%, rgba(22,139,141,0) 68%);
+        pointer-events: none;
+      }
+      .scene > * { position: relative; z-index: 1; }
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 36px;
+        font: 700 28px/1 IBM Plex Mono, monospace;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      .brand { display: flex; align-items: center; gap: 18px; }
+      .brand-dot {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: var(--teal);
+        box-shadow: 0 0 0 7px rgba(22,139,141,.13);
+      }
+      .meta-right { color: var(--muted); font-weight: 400; }
+      .rule {
+        height: 2px;
+        background: var(--teal);
+        transform-origin: left center;
+      }
+      .foot {
+        position: absolute;
+        left: 94px;
+        right: 94px;
+        bottom: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(24,56,73,.23);
+        padding-top: 15px;
+        color: var(--muted);
+        font: 400 28px/1.2 IBM Plex Mono, monospace;
+        letter-spacing: .06em;
+      }
+      .display {
+        margin: 0;
+        font: 900 86px/.99 "Playfair Display", serif;
+        letter-spacing: -.045em;
+      }
+      .subline {
+        color: var(--muted);
+        font-size: 29px;
+        line-height: 1.34;
+      }
+      .eyebrow {
+        color: var(--teal);
+        font: 700 28px/1.2 IBM Plex Mono, monospace;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      .asset {
+        display: block;
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(24,56,73,.12);
+        box-shadow: 0 28px 65px rgba(19,52,68,.10);
+        background: #f1f5f8;
+      }
+      .hero-layout {
+        display: grid;
+        grid-template-columns: 620px 1fr;
+        gap: 54px;
+        align-items: center;
+        height: 820px;
+        margin-top: 14px;
+      }
+      .hero-copy { padding-bottom: 15px; }
+      .hero-title { margin: 23px 0 25px; }
+      .hero-title span { display: block; }
+      .hero-title span:last-child { color: var(--teal); }
+      .hero-copy .subline { max-width: 530px; }
+      .hero-art {
+        width: 100%;
+        height: 770px;
+        overflow: hidden;
+        border-radius: 18px;
+      }
+      .hero-art img { object-position: center; }
+      .hero-rail {
+        width: 300px;
+        margin: 35px 0 0;
+      }
+      .ceiling-layout {
+        height: 790px;
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 660px 1fr;
+        gap: 72px;
+        align-items: center;
+      }
+      .ceiling-copy .display { font-size: 65px; line-height: 1.02; }
+      .ceiling-number {
+        margin: 34px 0 3px;
+        color: var(--teal);
+        font: 900 128px/.95 Montserrat, sans-serif;
+        letter-spacing: -.07em;
+      }
+      .ceiling-unit {
+        display: inline-block;
+        color: var(--ink);
+        font: 700 30px/1 Montserrat, sans-serif;
+        letter-spacing: .01em;
+      }
+      .ceiling-note {
+        max-width: 560px;
+        margin-top: 24px;
+        font-size: 30px;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+      .ceiling-art { height: 690px; overflow: hidden; border-radius: 18px; }
+      .scene-title {
+        margin: 34px 0 0;
+        font: 900 64px/1.04 "Playfair Display", serif;
+        letter-spacing: -.04em;
+      }
+      .stack-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        height: 540px;
+        margin-top: 20px;
+      }
+      .stack-figure {
+        margin: 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column; height: 100%;
+      }
+      .stack-figure img { min-height: 0; height: 0; flex: 1; }
+      .stack-specs {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 22px;
+        padding: 17px 22px;
+        border: 1px solid rgba(24,56,73,.2);
+        border-radius: 12px;
+        background: rgba(247,250,251,.8);
+        color: var(--ink);
+        font: 700 28px/1.2 IBM Plex Mono, monospace;
+      }
+      .variants-title {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: 32px;
+      }
+      .variants-title .scene-title { margin: 0; }
+      .variants-title .eyebrow { white-space: nowrap; }
+      .variant-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        height: 580px;
+        margin-top: 22px;
+      }
+      .variant {
+        position: relative;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        min-height: 0;
+        padding: 14px;
+        border: 1px solid rgba(24,56,73,.19);
+        border-radius: 18px;
+        background: rgba(247,250,251,.72);
+      }
+      .variant img {
+        min-height: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 12px;
+      }
+      .variant-caption {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 12px 7px 3px;
+        color: var(--ink);
+      }
+      .variant-name { font-size: 30px; font-weight: 700; }
+      .variant-parts { color: var(--teal); font: 700 28px/1.2 IBM Plex Mono, monospace; }
+      .print-note {
+        position: absolute;
+        right: 8px;
+        bottom: 112px;
+        width: 220px;
+        height: 144px;
+        object-fit: cover;
+        border: 2px solid var(--paper);
+        border-radius: 10px;
+        box-shadow: 0 10px 28px rgba(19,52,68,.18);
+      }
+      .files-layout {
+        display: grid;
+        grid-template-columns: 1fr 660px;
+        gap: 50px;
+        align-items: center;
+        height: 770px;
+        margin-top: 18px;
+      }
+      .board-main { height: 600px; }
+      .copper-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 16px;
+      }
+      .copper-card { margin: 0; }
+      .copper-card img {
+        width: 100%;
+        height: 190px;
+        object-fit: contain;
+        border: 1px solid rgba(24,56,73,.14);
+        border-radius: 10px;
+        background: #f2f6f8;
+      }
+      .copper-label {
+        padding-top: 7px;
+        color: var(--muted);
+        font: 700 28px/1.2 IBM Plex Mono, monospace;
+        letter-spacing: .08em;
+      }
+      .files-copy .scene-title { margin: 0 0 22px; font-size: 58px; }
+      .download-line {
+        margin: 28px 0 12px;
+        color: var(--teal);
+        font: 700 28px/1.4 IBM Plex Mono, monospace;
+        letter-spacing: .03em;
+        text-transform: uppercase;
+      }
+      .repo span { display: block; }
+      .repo {
+        max-width: 680px;
+        overflow-wrap: anywhere;
+        font: 700 29px/1.2 Montserrat, sans-serif;
+        color: var(--ink);
+      }
+      .pilot-pill {
+        display: inline-block;
+        margin-top: 21px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--white);
+        font: 700 28px/1.2 IBM Plex Mono, monospace;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+      }
+      .caveat {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 28px;
+        line-height: 1.3;
+      }
+      .credit {
+        position: absolute;
+        right: 94px;
+        bottom: 14px;
+        color: #506a75;
+        font: 400 28px/1.2 Montserrat, sans-serif;
+      }
+      .hero-art, .ceiling-art, .variant { margin: 0; }
+      .variant .print-note { width: 220px; height: 144px; }
+      .frame-id {
+        color: var(--teal);
+        font: 700 18px/1 IBM Plex Mono, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-8t37" id="root" data-composition-id="smartpark-revd-showcase" data-start="0" data-width="1920" data-height="1080" data-duration="20.5">
+      <section data-hf-id="hf-749p" id="scene-one" class="scene clip" data-start="0" data-duration="3.2" data-track-index="1">
+        <div data-hf-id="hf-puvz" class="meta">
+          <div data-hf-id="hf-oojr" class="brand"><span data-hf-id="hf-i9p2" class="brand-dot"></span><span data-hf-id="hf-9v7y">SmartPark / Rev D</span></div>
+          <div data-hf-id="hf-qgrv" class="meta-right">01 / 05 &nbsp; · &nbsp; Indoor pilot</div>
+        </div>
+        <div data-hf-id="hf-3khb" class="hero-layout">
+          <div data-hf-id="hf-00bm" id="hero-copy" class="hero-copy">
+            <div data-hf-id="hf-jakh" class="eyebrow">Ceiling-mounted parking sensor</div>
+            <h1 data-hf-id="hf-b505" class="display hero-title"><span data-hf-id="hf-wp47">One bay.</span><span data-hf-id="hf-lnms">Read from above.</span></h1>
+            <div data-hf-id="hf-vpjk" class="subline">An indoor pilot design for a single parking bay.</div>
+            <div data-hf-id="hf-7gxo" id="hero-rule" class="rule hero-rail"></div>
+          </div>
+          <figure data-hf-id="hf-pzs3" id="hero-art" class="hero-art">
+            <img data-hf-id="hf-5u6w" class="asset" src="assets/images/product_oled.png" alt="SmartPark OLED case CAD render">
+          </figure>
+        </div>
+        <div data-hf-id="hf-mlgk" class="foot"><span data-hf-id="hf-nnx8">HC-SR04 · DOWNWARD-FACING</span><span data-hf-id="hf-lz5r">DESIGN STUDY / 2026</span></div>
+      </section>
+
+      <section data-hf-id="hf-n4o0" id="scene-two" class="scene clip" data-start="3.2" data-duration="3.9" data-track-index="2">
+        <div data-hf-id="hf-zjfj" class="meta">
+          <div data-hf-id="hf-jbzb" class="brand"><span data-hf-id="hf-k48q" class="brand-dot"></span><span data-hf-id="hf-e5hu">SmartPark / Rev D</span></div>
+          <div data-hf-id="hf-e8wc" class="meta-right">02 / 05 &nbsp; · &nbsp; Mounting envelope</div>
+        </div>
+        <div data-hf-id="hf-xcco" class="ceiling-layout">
+          <div data-hf-id="hf-eoau" id="ceiling-copy" class="ceiling-copy">
+            <div data-hf-id="hf-tkf0" class="eyebrow">Indoor ceiling mount</div>
+            <h2 data-hf-id="hf-3r9o" class="display">Designed for a downward read.</h2>
+            <div data-hf-id="hf-ooiv" class="ceiling-number">2.8 <span data-hf-id="hf-58og" class="ceiling-unit">m</span></div>
+            <div data-hf-id="hf-pieu" class="ceiling-note">Design envelope: ceiling up to 2.8 m above the floor.</div>
+          </div>
+          <figure data-hf-id="hf-4wt9" id="ceiling-art" class="ceiling-art">
+            <img data-hf-id="hf-a9z5" class="asset" src="assets/images/product_status.png" alt="SmartPark status-only case CAD render">
+          </figure>
+        </div>
+        <div data-hf-id="hf-3ly4" class="foot"><span data-hf-id="hf-5s22">INDOOR PILOT · DESIGN LIMIT</span><span data-hf-id="hf-jakl">NO FIELD-TEST CLAIM</span></div>
+      </section>
+
+      <section data-hf-id="hf-lo9k" id="scene-three" class="scene clip" data-start="7.1" data-duration="4.4" data-track-index="3">
+        <div data-hf-id="hf-z54i" class="meta">
+          <div data-hf-id="hf-ixoa" class="brand"><span data-hf-id="hf-kijr" class="brand-dot"></span><span data-hf-id="hf-ejsv">SmartPark / Rev D</span></div>
+          <div data-hf-id="hf-qx2z" class="meta-right">03 / 05 &nbsp; · &nbsp; Inside the enclosure</div>
+        </div>
+        <h2 data-hf-id="hf-mboz" class="scene-title">A compact carrier. A considered stack.</h2>
+        <div data-hf-id="hf-p6k7" class="stack-layout">
+          <figure data-hf-id="hf-na9z" id="exploded-art" class="stack-figure">
+            <img data-hf-id="hf-dk5t" class="asset" src="assets/images/exploded_oled.png" alt="SmartPark OLED enclosure exploded CAD render">
+          </figure>
+          <figure data-hf-id="hf-d45m" id="stack-art" class="stack-figure">
+            <img data-hf-id="hf-x5jx" class="asset" src="assets/images/electronics_stack.png" alt="SmartPark electronics stack CAD render">
+          </figure>
+        </div>
+        <div data-hf-id="hf-7y3n" class="stack-specs"><span data-hf-id="hf-zxjt">62 × 50 mm carrier</span><span data-hf-id="hf-irc5">XIAO ESP32S3</span><span data-hf-id="hf-poux">Wio-SX1262</span><span data-hf-id="hf-0p6e">HC-SR04</span><span data-hf-id="hf-w6rz">Protected 1S LiPo</span></div>
+        <div data-hf-id="hf-2f11" class="foot"><span data-hf-id="hf-wdcg">RETAINED REV D GEOMETRY</span><span data-hf-id="hf-axvu">NO FIRMWARE OR GATEWAY INCLUDED</span></div>
+      </section>
+
+      <section data-hf-id="hf-w1fu" id="scene-four" class="scene clip" data-start="11.5" data-duration="4.2" data-track-index="4">
+        <div data-hf-id="hf-yqth" class="meta">
+          <div data-hf-id="hf-ijd9" class="brand"><span data-hf-id="hf-kwus" class="brand-dot"></span><span data-hf-id="hf-ey3w">SmartPark / Rev D</span></div>
+          <div data-hf-id="hf-7oo9" class="meta-right">04 / 05 &nbsp; · &nbsp; Two case options</div>
+        </div>
+        <div data-hf-id="hf-6qbj" class="variants-title">
+          <h2 data-hf-id="hf-42jw" class="scene-title">One carrier. Two case options.</h2>
+          <div data-hf-id="hf-dpaj" class="eyebrow">Same PCB / same Gerbers</div>
+        </div>
+        <div data-hf-id="hf-mrk4" class="variant-grid">
+          <figure data-hf-id="hf-bsfs" id="variant-oled" class="variant">
+            <img data-hf-id="hf-v68r" src="assets/images/product_oled.png" alt="OLED version of the SmartPark case">
+            <figcaption data-hf-id="hf-p5vt" class="variant-caption"><span data-hf-id="hf-ogsu" class="variant-name">OLED</span><span data-hf-id="hf-jux6" class="variant-parts">7 printed parts</span></figcaption>
+            <img data-hf-id="hf-103d" class="print-note" src="assets/images/parts-review.png" alt="Printed case parts overview">
+          </figure>
+          <figure data-hf-id="hf-ta9w" id="variant-status" class="variant">
+            <img data-hf-id="hf-7hlk" src="assets/images/product_status.png" alt="Status-only version of the SmartPark case">
+            <figcaption data-hf-id="hf-1ybh" class="variant-caption"><span data-hf-id="hf-u2rf" class="variant-name">Status-only</span><span data-hf-id="hf-yd4l" class="variant-parts">6 printed parts</span></figcaption>
+          </figure>
+        </div>
+        <div data-hf-id="hf-2tc2" class="foot"><span data-hf-id="hf-pen2">OLED + RETAINER / 7 PARTS</span><span data-hf-id="hf-v5kd">STATUS-ONLY / 6 PARTS</span></div>
+      </section>
+
+      <section data-hf-id="hf-e65n" id="scene-five" class="scene clip" data-start="15.7" data-duration="4.8" data-track-index="5">
+        <div data-hf-id="hf-1iyo" class="meta">
+          <div data-hf-id="hf-lbig" class="brand"><span data-hf-id="hf-lb5t" class="brand-dot"></span><span data-hf-id="hf-fcex">SmartPark / Rev D</span></div>
+          <div data-hf-id="hf-fxv2" class="meta-right">05 / 05 &nbsp; · &nbsp; Files to build from</div>
+        </div>
+        <div data-hf-id="hf-jn3k" class="files-layout">
+          <div data-hf-id="hf-fpbi" id="files-copy" class="files-copy">
+            <div data-hf-id="hf-zdpa" class="eyebrow">Open design files</div>
+            <h2 data-hf-id="hf-3n8g" class="scene-title">The board. The case. The build files.</h2>
+            <div data-hf-id="hf-p2y1" class="download-line">Gerbers · KiCad · case prints</div>
+            <div data-hf-id="hf-zzqk" class="repo"><span data-hf-id="hf-jluu">github.com/RAJ-IITROORKEE/</span><span data-hf-id="hf-uhwu">smart-park-design</span></div>
+            <div data-hf-id="hf-91of" class="pilot-pill">Rev D · indoor pilot</div>
+            <div data-hf-id="hf-65h1" class="caveat">Unbuilt design · firmware and gateway not included.</div>
+          </div>
+          <div data-hf-id="hf-4pyf" id="board-art">
+            <img data-hf-id="hf-seo7" class="asset board-main" src="assets/images/pcb-only.png" alt="SmartPark carrier PCB CAD render">
+            <div data-hf-id="hf-kbe4" class="copper-pair">
+              <figure data-hf-id="hf-az3k" id="pcb-front" class="copper-card"><img data-hf-id="hf-5wih" src="assets/images/pcb-front.png" alt="SmartPark PCB front copper preview"><figcaption data-hf-id="hf-cjiv" class="copper-label">Front copper</figcaption></figure>
+              <figure data-hf-id="hf-cnvq" id="pcb-back" class="copper-card"><img data-hf-id="hf-16i1" src="assets/images/pcb-back.png" alt="SmartPark PCB back copper preview"><figcaption data-hf-id="hf-52zd" class="copper-label">Back copper</figcaption></figure>
+            </div>
+          </div>
+        </div>
+        <div data-hf-id="hf-dpbv" class="credit">Music: Happy Beats &amp; Business Moves Vol. 12 by Sascha Ende · ende.app · CC BY 4.0</div>
+        <div data-hf-id="hf-4sv7" class="foot"><span data-hf-id="hf-aclp">READ THE BUILD GUIDE / CHECK THE DOWNLOADS</span><span data-hf-id="hf-42dg">REVD / INDOOR PILOT</span></div>
+      </section>
+
+      <audio data-hf-id="hf-bag4" id="bg-music" data-start="0" data-duration="20.5" data-track-index="10" data-volume="0.28" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.55,&quot;v&quot;:1},{&quot;t&quot;:19.5,&quot;v&quot;:1},{&quot;t&quot;:20.5,&quot;v&quot;:0}]}]}" src="assets/music/happy-beats-business-moves-vol-12-by-ende-dot-app.mp3"></audio>
+      <audio data-hf-id="hf-mfmx" id="sfx-product-reveal" data-start="0.12" data-duration="0.18" data-track-index="11" data-volume="0.52" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio data-hf-id="hf-a3rc" id="sfx-electronics-stack" data-start="8.62" data-duration="0.12" data-track-index="12" data-volume="0.40" src="assets/sfx/interface/bong_001.ogg"></audio>
+      <audio data-hf-id="hf-putk" id="sfx-files-reveal" data-start="17.38" data-duration="0.15" data-track-index="13" data-volume="0.48" src="assets/sfx/impact/impactSoft_medium_004.ogg"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#hero-copy", { x: -16 }, { x: 0, duration: 0.62, ease: "power3.out" }, 0.22);
+      tl.fromTo("#hero-art", { x: 18, scale: 0.985 }, { x: 0, scale: 1, duration: 0.76, ease: "power2.out" }, 0.18);
+      tl.fromTo("#hero-art img", { scale: 1 }, { scale: 1.035, duration: 2.45, ease: "none" }, 0.82);
+      tl.fromTo("#hero-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.42, ease: "power2.out" }, 0.84);
+
+      tl.fromTo("#ceiling-copy", { x: -34, opacity: 0 }, { x: 0, opacity: 1, duration: 0.58, ease: "power3.out" }, 3.35);
+      tl.fromTo("#ceiling-art", { x: 48, opacity: 0, scale: 0.98 }, { x: 0, opacity: 1, scale: 1, duration: 0.72, ease: "power2.out" }, 3.28);
+      tl.fromTo("#ceiling-art img", { scale: 1 }, { scale: 1.035, duration: 2.7, ease: "none" }, 3.98);
+
+      tl.fromTo("#scene-three .scene-title", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.54, ease: "power3.out" }, 7.26);
+      tl.fromTo("#exploded-art", { x: -32, opacity: 0 }, { x: 0, opacity: 1, duration: 0.62, ease: "power2.out" }, 7.42);
+      tl.fromTo("#stack-art", { x: 38, opacity: 0 }, { x: 0, opacity: 1, duration: 0.66, ease: "power3.out" }, 8.06);
+      tl.fromTo(".stack-specs", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "power2.out" }, 8.74);
+      // beat-locked: electronics stack resolves at 8.74s
+      tl.fromTo("#stack-art img", { scale: 1 }, { scale: 1.025, duration: 2.2, ease: "none" }, 8.8);
+
+      tl.fromTo(".variants-title", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.48, ease: "power2.out" }, 11.66);
+      tl.fromTo("#variant-oled", { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 12.02);
+      tl.fromTo("#variant-status", { x: 28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 12.68);
+      // beat-grid: OLED 12.02s, status-only 13.11s; both captions then hold to 15.7s
+
+      tl.fromTo("#files-copy", { x: -26, opacity: 0 }, { x: 0, opacity: 1, duration: 0.56, ease: "power3.out" }, 15.92);
+      tl.fromTo("#board-art", { x: 36, opacity: 0 }, { x: 0, opacity: 1, duration: 0.62, ease: "power2.out" }, 15.86);
+      tl.fromTo("#pcb-front", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }, 16.5);
+      tl.fromTo("#pcb-back", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 16.82);
+      // beat-locked: board and build-file CTA land near 17.47s
+
+      window.__timelines["smartpark-revd-showcase"] = tl;
+    </script>
+  </body>
+</html>
+
+
+
+
+
